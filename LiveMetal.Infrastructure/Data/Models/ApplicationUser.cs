@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,12 +12,21 @@ namespace LiveMetal.Infrastructure.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public int UserId { get; set; }
+        [Required]
+        [MaxLength(UserFirstNameMaxLength)]
+        [PersonalData]
+        public string FirstName { get; set; } = string.Empty;
 
-        public string UserName { get; set; }
+        [Required]
+        [MaxLength(UserLastNameMaxLength)]
+        [PersonalData]
+        public string LastName { get; set; } = string.Empty;
 
-        public string Email { get; set; }
+        [PersonalData]
+        public string ProfilePictureUrl { get; set; } = string.Empty;
 
-        public string ProfilePictureUrl { get; set; }
+        public List<Review> Reviews { get; set; } = new List<Review>();
+
+        public List<UserFavourite> UserFavourites { get; set; } = new List<UserFavourite>();
     }
 }
