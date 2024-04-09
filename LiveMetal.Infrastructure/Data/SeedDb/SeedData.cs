@@ -321,6 +321,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             FirstReview = new Review
             {
                 ReviewId = 1,
+                BandId = 1,
                 ConcertId = 1,
                 UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                 Title = "Amazing concert!",
@@ -332,6 +333,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             SecondReview = new Review
             {
                 ReviewId = 2,
+                BandId = 2,
                 ConcertId = 2,
                 UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                 Title = "Great show!",
@@ -343,6 +345,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             ThirdReview = new Review
             {
                 ReviewId = 3,
+                BandId = 3,
                 ConcertId = 3,
                 UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                 Title = "Brutal performance!",
