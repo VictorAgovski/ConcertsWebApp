@@ -11,18 +11,6 @@ namespace LiveMetal
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-                //        var connectionString = builder.Configuration.GetConnectionString("LiveMetalDbContextConnection") ?? throw new InvalidOperationException("Connection string 'LiveMetalDbContextConnection' not found.");
-
-                //                    builder.Services.AddDbContext<LiveMetalDbContext>(options =>
-                //options.UseSqlServer(connectionString));
-
-            // Add services to the container.
-            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(connectionString));
-
-            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<LiveMetalDbContext>();
 
             builder.Services.AddApplicationDbContext(builder.Configuration);
             builder.Services.AddApplicationIdentity(builder.Configuration);
