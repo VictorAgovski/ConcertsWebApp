@@ -75,6 +75,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
         public SeedData()
         {
             SeedUsers();
+            //SeedBands();
         }
 
         private void SeedUsers()
@@ -89,7 +90,8 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Email = "guest@mail.com",
                 NormalizedEmail = "guest@mail.com",
                 FirstName = "Guest",
-                LastName = "Guestov"
+                LastName = "Guestov",
+                ProfilePictureUrl = "https://ohsobserver.com/wp-content/uploads/2022/12/Guest-user.png"
             };
 
             GuestUserClaim = new IdentityUserClaim<string>
@@ -110,7 +112,8 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Email = "admin@mail.com",
                 NormalizedEmail = "admin@mail.com",
                 FirstName = "Admin",
-                LastName = "Adminov"
+                LastName = "Adminov",
+                ProfilePictureUrl = "https://www.wpeka.com/rgh/wp-content/uploads/2014/03/Changing-the-default-admin-user-in-WordPress1-e1462965535256.jpg"
             };
 
             AdminUserClaim = new IdentityUserClaim<string>
@@ -131,7 +134,8 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Email = "registered@mail.com",
                 NormalizedEmail = "registered@mail.com",
                 FirstName = "Registered",
-                LastName = "Registeredov"
+                LastName = "Registeredov",
+                ProfilePictureUrl = "https://www.pngkey.com/png/detail/73-730394_admin-approved-user-registration-user-registration-icon-png.png"
             };
 
             RegisteredUserClaim = new IdentityUserClaim<string>
@@ -144,5 +148,17 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
 
             RegisteredUser.PasswordHash = hasher.HashPassword(RegisteredUser, "registered123");
         }
+
+        //private void SeedBands()
+        //{
+        //    HeavyMetalBand = new Band
+        //    {
+        //        BandId = 1,
+        //        Name = "Heavy Metal Band",
+        //        Genre = "Heavy Metal",
+        //        Country = "USA",
+        //        YearFormed = 1980
+        //    };
+        //}
     }
 }
