@@ -1,4 +1,5 @@
 ﻿using LiveMetal.Infrastructure.Data.Models;
+using LiveMetal.Infrastructure.Data.SeedDb;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,19 +14,14 @@ namespace LiveMetal.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<UserFavourite>()
-                .HasKey(uf => new { uf.UserId, uf.BandId });
-
-            builder.Entity<UserFavourite>()
-                .HasOne(sp => sp.User)
-                .WithMany(s => s.UserFavourites)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Review>()
-                .HasOne(r => r.Concert)
-                .WithMany(c => c.Reviews)
-                .HasForeignKey(r => r.ConcertId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new UserClaimsConfiguration());
+            builder.ApplyConfiguration(new BandConfiguration());
+            builder.ApplyConfiguration(new ConcertConfiguration());
+            builder.ApplyConfiguration(new MemberConfiguration());
+            builder.ApplyConfiguration(new ReviewConfiguration());
+            builder.ApplyConfiguration(new UserFavouriteConfiguration());
+            builder.ApplyConfiguration(new VenueConfiguration());
 
             base.OnModelCreating(builder);
         }
