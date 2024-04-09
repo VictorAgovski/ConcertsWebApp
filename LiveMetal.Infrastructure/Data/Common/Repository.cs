@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LiveMetal.Infrastructure.Common
+namespace LiveMetal.Infrastructure.Data.Common
 {
     public class Repository : IRepository
     {

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using LiveMetal.Infrastructure.Data;
 using LiveMetal.Infrastructure.Data.Models;
+using LiveMetal.Infrastructure.Data.Common;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -24,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<LiveMetalDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            //services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
