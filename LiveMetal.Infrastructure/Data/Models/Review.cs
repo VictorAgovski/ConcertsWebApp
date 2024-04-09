@@ -44,13 +44,13 @@ namespace LiveMetal.Infrastructure.Data.Models
         public ApplicationUser? User { get; set; }
 
         [Comment("Band unique identifier - foreign key")]
-        public int BandId { get; set; }
+        public int? BandId { get; set; }
 
         [ForeignKey(nameof(BandId))]
         public Band? Band { get; set; }
 
         [Comment("Concert unique identifier - foreign key")]
-        public int ConcertId { get; set; }
+        public int? ConcertId { get; set; }
 
         [ForeignKey(nameof(ConcertId))]
         public Concert? Concert { get; set; }
