@@ -44,16 +44,6 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
 
         public Member FifthMember { get; set; }
 
-        public Member SixthMember { get; set; }
-
-        public Member SeventhMember { get; set; }
-
-        public Member EighthMember { get; set; }
-
-        public Member NinthMember { get; set; }
-
-        public Member TenthMember { get; set; }
-
         public Review FirstReview { get; set; }
 
         public Review SecondReview { get; set; }
@@ -75,7 +65,8 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
         public SeedData()
         {
             SeedUsers();
-            //SeedBands();
+            SeedBands();
+            SeedMembers();
         }
 
         private void SeedUsers()
@@ -149,16 +140,105 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             RegisteredUser.PasswordHash = hasher.HashPassword(RegisteredUser, "registered123");
         }
 
-        //private void SeedBands()
-        //{
-        //    HeavyMetalBand = new Band
-        //    {
-        //        BandId = 1,
-        //        Name = "Heavy Metal Band",
-        //        Genre = "Heavy Metal",
-        //        Country = "USA",
-        //        YearFormed = 1980
-        //    };
-        //}
+        private void SeedBands()
+        {
+            HeavyMetalBand = new Band
+            {
+                BandId = 1,
+                Name = "Iron Maiden",
+                Genre = "Heavy Metal",
+                FormationYear = new DateTime(1975, 12, 25),
+                Biography = "Iron Maiden are an English heavy metal band formed in Leyton, East London, in 1975 by bassist and primary songwriter Steve Harris. The band's discography has grown to 40 albums, including 16 studio albums, 13 live albums, four EPs, and seven compilations.",
+                BandImageUrl = "https://w0.peakpx.com/wallpaper/812/225/HD-wallpaper-iron-maiden-the-trooper-music-band-trooper-flag-metal-iron-maiden-logo-heavy-iron-eddie-sword-maiden.jpg",
+            };
+
+            ThrashMetalBand = new Band
+            {
+                BandId = 2,
+                Name = "Metallica",
+                Genre = "Thrash Metal",
+                FormationYear = new DateTime(1981, 10, 28),
+                Biography = "Metallica is an American heavy metal band. The band was formed in 1981 in Los Angeles by vocalist/guitarist James Hetfield and drummer Lars Ulrich, and has been based in San Francisco for most of its career.",
+                BandImageUrl = "https://i.pinimg.com/originals/04/8a/f7/048af73296084481c48c99c5f70ab378.jpg"
+            };
+
+            DeathMetalBand = new Band
+            {
+                BandId = 3,
+                Name = "Nile",
+                Genre = "Death Metal",
+                FormationYear = new DateTime(1993, 11, 1),
+                Biography = "Nile is an American death metal band from Greenville, South Carolina, formed in 1993. The band is known for its technical and complex style of death metal.",
+                BandImageUrl = "https://static.wikia.nocookie.net/logopedia/images/6/6f/Nileband_logo.jpg/revision/latest?cb=20160624042213"
+            };
+
+            BlackMetalBand = new Band
+            {
+                BandId = 4,
+                Name = "Darkthrone",
+                Genre = "Black Metal",
+                FormationYear = new DateTime(1986, 6, 1),
+                Biography = "Darkthrone is a Norwegian black metal band. It formed in 1986 as a death metal band under the name Black Death. In 1991, the band embraced a black metal style influenced by Bathory and Celtic Frost and became one of the leading bands in the Norwegian black metal scene.",
+                BandImageUrl = "https://i.pinimg.com/originals/b6/30/32/b630323cff6fdfe395e5127fb73a45e3.jpg"
+            };
+        }
+
+        private void SeedMembers()
+        {
+            FirstMember = new Member
+            {
+                MemberId = 1,
+                FullName = "Steve Harris",
+                Biography = "Stephen Percy Harris (born 12 March 1956) is an English musician who is the bassist, keyboardist, backing vocalist, primary songwriter and founder of heavy metal band Iron Maiden.",
+                Role = "Bass Guitar",
+                BandId = 1,
+                DateOfBirth = new DateTime(1956, 3, 12),
+                DateOfJoining = new DateTime(1975, 12, 25)
+            };
+
+            SecondMember = new Member
+            {
+                MemberId = 2,
+                FullName = "Dave Murray",
+                Biography = "David Michael Murray (born 23 December 1956) is an English guitarist and songwriter best known as one of the earliest members of the British heavy metal band Iron Maiden.",
+                Role = "Lead Guitar",
+                BandId = 1,
+                DateOfBirth = new DateTime(1956, 12, 23),
+                DateOfJoining = new DateTime(1976, 12, 25)
+            };
+
+            ThirdMember = new Member
+            {
+                MemberId = 3,
+                FullName = "Lars Ulrich",
+                Biography = "Lars Ulrich (born 26 December 1963) is a Danish musician best known as the drummer and co-founder of American heavy metal band Metallica.",
+                Role = "Drums",
+                BandId = 2,
+                DateOfBirth = new DateTime(1963, 12, 26),
+                DateOfJoining = new DateTime(1981, 10, 28)
+            };
+
+            FourthMember = new Member
+            {
+                MemberId = 4,
+                FullName = "Karl Sanders",
+                Biography = "Karl Sanders (born 5 June 1964) is an American musician, most widely known as the founding member of the American death metal band Nile.",
+                Role = "Guitar",
+                BandId = 3,
+                DateOfBirth = new DateTime(1964, 6, 5),
+                DateOfJoining = new DateTime(1993, 11, 1)
+            };
+
+            FifthMember = new Member
+            {
+                MemberId = 5,
+                FullName = "Fenriz",
+                Biography = "Gylve Fenris Nagell (born 28 November 1971), better known as Fenriz, is a Norwegian musician and politician who is best known as being one half of the metal duo Darkthrone.",
+                Role = "Drums",
+                BandId = 4,
+                DateOfBirth = new DateTime(1971, 11, 28),
+                DateOfJoining = new DateTime(1986, 6, 1)
+            };
+        }
     }
 }
