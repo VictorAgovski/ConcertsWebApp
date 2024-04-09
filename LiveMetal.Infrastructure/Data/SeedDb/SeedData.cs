@@ -34,6 +34,8 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
 
         public Concert SecondConcert { get; set; }
 
+        public Concert ThirdConcert { get; set; }
+
         public Member FirstMember { get; set; }
 
         public Member SecondMember { get; set; }
@@ -67,6 +69,10 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             SeedUsers();
             SeedBands();
             SeedMembers();
+            SeedVenues();
+            SeedConcerts();
+            SeedReviews();
+            SeedUserFavourites();
         }
 
         private void SeedUsers()
@@ -238,6 +244,132 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 BandId = 4,
                 DateOfBirth = new DateTime(1971, 11, 28),
                 DateOfJoining = new DateTime(1986, 6, 1)
+            };
+        }
+
+        private void SeedVenues()
+        {
+            FirstVenue = new Venue
+            {
+                VenueId = 1,
+                Name = "O2 Arena",
+                Location = "Peninsula Square, London SE10 0DX, United Kingdom",
+                Capacity = 20000,
+                ContactInfo = "+44 20 8463 2000"
+            };
+
+            SecondVenue = new Venue
+            {
+                VenueId = 2,
+                Name = "Wembley Stadium",
+                Location = "Wembley, London HA9 0WS, United Kingdom",
+                Capacity = 90000,
+                ContactInfo = "+44 20 8795 9000"
+            };
+
+            ThirdVenue = new Venue
+            {
+                VenueId = 3,
+                Name = "Royal Albert Hall",
+                Location = "Kensington Gore, London SW7 2AP, United Kingdom",
+                Capacity = 5200,
+                ContactInfo = "+44 20 7589 8212"
+            };
+        }
+
+        private void SeedConcerts()
+        {
+            FirstConcert = new Concert
+            {
+                ConcertId = 1,
+                Name = "Iron Maiden - Legacy of the Beast Tour",
+                BandId = 1,
+                VenueId = 1,
+                Date = new DateTime(2024, 6, 1),
+                Time = new DateTime(2024, 6, 1, 20, 0, 0),
+                TicketPrice = 50,
+                Description = "Iron Maiden are coming to London as part of their Legacy of the Beast Tour. Don't miss this unique opportunity to see one of the greatest heavy metal bands of all time!"
+            };
+
+            SecondConcert = new Concert
+            {
+                ConcertId = 2,
+                Name = "Metallica - WorldWired Tour",
+                BandId = 2,
+                VenueId = 2,
+                Date = new DateTime(2024, 7, 15),
+                Time = new DateTime(2024, 7, 15, 19, 0, 0),
+                TicketPrice = 60,
+                Description = "Metallica are coming to London as part of their WorldWired Tour. Don't miss this unique opportunity to see one of the greatest thrash metal bands of all time!"
+            };
+
+            ThirdConcert = new Concert
+            {
+                ConcertId = 3,
+                Name = "Nile - Vile Nilotic Rites Tour",
+                BandId = 3,
+                VenueId = 3,
+                Date = new DateTime(2024, 8, 30),
+                Time = new DateTime(2024, 8, 30, 19, 30, 0),
+                TicketPrice = 40,
+                Description = "Nile are coming to London as part of their Vile Nilotic Rites Tour. Don't miss this unique opportunity to see one of the greatest death metal bands of all time!"
+            };
+        }
+
+        private void SeedReviews()
+        {
+            FirstReview = new Review
+            {
+                ReviewId = 1,
+                ConcertId = 1,
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
+                Title = "Amazing concert!",
+                Rating = 5,
+                Content = "This was the best concert I've ever been to! Iron Maiden were amazing!",
+                IssuedOn = new DateTime(2024, 6, 2)
+            };
+
+            SecondReview = new Review
+            {
+                ReviewId = 2,
+                ConcertId = 2,
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
+                Title = "Great show!",
+                Rating = 4,
+                Content = "Metallica were awesome! I had a great time at the concert!",
+                IssuedOn = new DateTime(2024, 7, 16)
+            };
+
+            ThirdReview = new Review
+            {
+                ReviewId = 3,
+                ConcertId = 3,
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
+                Title = "Brutal performance!",
+                Rating = 5,
+                Content = "Nile were brutal! I loved every second of the concert!",
+                IssuedOn = new DateTime(2024, 8, 31)
+            };
+        }
+
+        private void SeedUserFavourites()
+        {
+            FirstFavourite = new UserFavourite
+            {
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
+                BandId = 1
+            };
+
+            SecondFavourite = new UserFavourite
+            {
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
+                BandId = 2
+            };
+
+            ThirdFavourite = new UserFavourite
+            {
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
+                BandId = 3
             };
         }
     }
