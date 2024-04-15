@@ -73,5 +73,13 @@ namespace LiveMetal.Infrastructure.Constants
 
         public const int MemberRoleMaxLength = 20;
         public const int MemberRoleMinLength = 3;
+
+        // News
+
+        public const int NewsTitleMaxLength = 100;
+        public const int NewsTitleMinLength = 3;
+
+        public const int NewsContentMaxLength = 1000;
+        public const int NewsContentMinLength = 10;
     }
 }

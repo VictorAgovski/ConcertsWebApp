@@ -28,5 +28,7 @@ namespace LiveMetal.Infrastructure.Data.Models
         public List<Review> Reviews { get; set; } = new List<Review>();
 
         public List<UserFavourite> UserFavourites { get; set; } = new List<UserFavourite>();
+
+        public List<News> NewsByUser { get; set; } = new List<News>();
     }
 }

@@ -64,6 +64,12 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
 
         public UserFavourite ThirdFavourite { get; set; }
 
+        public News FirstNews { get; set; }
+
+        public News SecondNews { get; set; }
+
+        public News ThirdNews { get; set; }
+
         public SeedData()
         {
             SeedUsers();
@@ -73,6 +79,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             SeedConcerts();
             SeedReviews();
             SeedUserFavourites();
+            SeedNews();
         }
 
         private void SeedUsers()
@@ -373,6 +380,36 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             {
                 UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                 BandId = 3
+            };
+        }
+
+        private void SeedNews()
+        {
+            FirstNews = new News
+            {
+                NewsId = 1,
+                Title = "Iron Maiden announce new album!",
+                Content = "Iron Maiden have announced that they are working on a new album. The band's bassist and primary songwriter Steve Harris has revealed that the new album will be released in 2023.",
+                PublishedOn = new DateTime(2023, 1, 15),
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1"
+            };
+
+            SecondNews = new News
+            {
+                NewsId = 2,
+                Title = "Metallica to release new single!",
+                Content = "Metallica have announced that they are releasing a new single. The band's drummer Lars Ulrich has revealed that the new single will be released in 2023.",
+                PublishedOn = new DateTime(2023, 2, 20),
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1"
+            };
+
+            ThirdNews = new News
+            {
+                NewsId = 3,
+                Title = "Nile to embark on European tour!",
+                Content = "Nile have announced that they are embarking on a European tour. The band's guitarist Karl Sanders has revealed that the tour will start in 2023.",
+                PublishedOn = new DateTime(2023, 3, 25),
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1"
             };
         }
     }

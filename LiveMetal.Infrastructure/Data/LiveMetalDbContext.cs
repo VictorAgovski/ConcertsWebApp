@@ -22,6 +22,7 @@ namespace LiveMetal.Infrastructure.Data
             builder.ApplyConfiguration(new ReviewConfiguration());
             builder.ApplyConfiguration(new UserFavouriteConfiguration());
             builder.ApplyConfiguration(new VenueConfiguration());
+            builder.ApplyConfiguration(new NewsConfiguration());
 
             base.OnModelCreating(builder);
         }
@@ -37,5 +38,7 @@ namespace LiveMetal.Infrastructure.Data
         public DbSet<UserFavourite> UsersFavourites { get; set; } = null!;
 
         public DbSet<Venue> Venues { get; set; } = null!;
+
+        public DbSet<News> News { get; set; } = null!;
     }
 }
