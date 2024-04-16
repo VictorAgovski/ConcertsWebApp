@@ -1,8 +1,27 @@
-﻿@{
+﻿@using LiveMetal.Core.Models.News
+@using LiveMetal.Infrastructure.Data.Models
+@model List<NewsHomeViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="news-section">
+    <h1 class="news-header">Latest News</h1>
+    @foreach (var news in Model)
+    {
+        <div class="news-item">
+            <h2 class="news-title">@news.Title</h2>
+            <p class="news-content">@news.Content</p>
+            <small class="news-date">Posted on @news.FormattedDate</small>
+            <img src="@news.ImageUrl" alt="News image" class="news-image">
+            <p class="news-content">@news.Content.Substring(0, 100)...</p>
+            <a href="@Url.Action("Details", "News", new { id = news.Id })" class="read-more">Read More</a>
+
+        </div>
+    }
 </div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/news.css" asp-append-version="true" />
+}

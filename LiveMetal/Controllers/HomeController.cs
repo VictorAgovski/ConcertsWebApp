@@ -1,4 +1,5 @@
-﻿using LiveMetal.Models;
+﻿using LiveMetal.Core.Contracts;
+using LiveMetal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,15 +9,19 @@ namespace LiveMetal.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INewsService _newsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INewsService newsService)
         {
             _logger = logger;
+            _newsService = newsService;
         }
 
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var topThreeNews = await _newsService.GetTopThreeNewsAsync();
+            return View(topThreeNews);
         }
 
         [AllowAnonymous]
