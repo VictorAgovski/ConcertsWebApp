@@ -31,6 +31,9 @@ namespace LiveMetal.Infrastructure.Data.Models
         [Comment("News publication date")]
         public DateTime PublishedOn { get; set; }
 
+        [Comment("News image URL")]
+        public string ImageUrl { get; set; } = string.Empty;
+
         [Required]
         [Comment("User unique identifier - foreign key")]
         public string UserId { get; set; } = string.Empty;

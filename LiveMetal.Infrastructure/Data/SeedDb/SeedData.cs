@@ -391,6 +391,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Title = "Iron Maiden announce new album!",
                 Content = "Iron Maiden have announced that they are working on a new album. The band's bassist and primary songwriter Steve Harris has revealed that the new album will be released in 2023.",
                 PublishedOn = new DateTime(2023, 1, 15),
+                ImageUrl = "https://pbs.twimg.com/media/FwBzG3UXgAARJAW.jpg:large",
                 UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1"
             };
 
@@ -400,6 +401,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Title = "Metallica to release new single!",
                 Content = "Metallica have announced that they are releasing a new single. The band's drummer Lars Ulrich has revealed that the new single will be released in 2023.",
                 PublishedOn = new DateTime(2023, 2, 20),
+                ImageUrl = "https://www.rollingstone.com/wp-content/uploads/2023/07/new-Metallica-theatrical-trailer.jpg",
                 UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1"
             };
 
@@ -409,6 +411,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Title = "Nile to embark on European tour!",
                 Content = "Nile have announced that they are embarking on a European tour. The band's guitarist Karl Sanders has revealed that the tour will start in 2023.",
                 PublishedOn = new DateTime(2023, 3, 25),
+                ImageUrl = "https://label.napalmrecords.com/images/bands/nile/2021-nile-band-picture-press.jpg",
                 UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1"
             };
         }
