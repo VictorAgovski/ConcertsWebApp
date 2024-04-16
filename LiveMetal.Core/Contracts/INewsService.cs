@@ -10,8 +10,10 @@ namespace LiveMetal.Core.Contracts
 {
     public interface INewsService
     {
-        //Task<IEnumerable<News>> GetAllNewsAsync();
+        Task<IEnumerable<NewsViewModel>> GetAllNewsAsync();
 
-        Task<IEnumerable<NewsHomeViewModel>> GetTopThreeNewsAsync();
+        Task<IEnumerable<NewsViewModel>> GetTopThreeNewsAsync();
+
+        Task<IEnumerable<News>> GetNewsByUserIdAsync(string id);
     }
 }

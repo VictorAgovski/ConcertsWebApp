@@ -20,19 +20,38 @@ namespace LiveMetal.Core.Services
             _repository = repository;
         }
 
-        public Task<IEnumerable<NewsHomeViewModel>> GetAllNewsAsync()
+        public async Task<IEnumerable<NewsViewModel>> GetAllNewsAsync()
         {
-            throw new NotImplementedException();
+            return await _repository
+                .AllReadOnly<News>()
+                .OrderByDescending(n => n.PublishedOn)
+                .Select(n => new NewsViewModel
+                {
+                    Id = n.UserId,
+                    Title = n.Title,
+                    Content = n.Content,
+                    PublishedOn = n.PublishedOn,
+                    ImageUrl = n.ImageUrl
+                })
+                .ToListAsync();
         }
 
-        public async Task<IEnumerable<NewsHomeViewModel>> GetTopThreeNewsAsync()
+        public async Task<IEnumerable<News>> GetNewsByUserIdAsync(string id)
+        {
+            return await _repository
+                .AllReadOnly<News>()
+                .Where(x => id == x.UserId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<NewsViewModel>> GetTopThreeNewsAsync()
         {
             return
                 await _repository
                 .AllReadOnly<News>()
                 .OrderByDescending(n => n.PublishedOn)
                 .Take(3)
-                .Select(n => new NewsHomeViewModel
+                .Select(n => new NewsViewModel
                 {
                     Id = n.UserId,
                     Title = n.Title,

@@ -1,0 +1,19 @@
+﻿.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.news-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.news-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}

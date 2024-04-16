@@ -1,0 +1,24 @@
+﻿@using LiveMetal.Core.Models.News
+@model IEnumerable<NewsViewModel>
+
+@{
+    ViewData["Title"] = "News Overview";
+}
+
+<h1>All News</h1>
+
+<div class="news-container">
+    @foreach (var news in Model)
+    {
+        <div class="news-item">
+            <h2>@news.Title</h2>
+            <img src="@news.ImageUrl" alt="News Image" class="news-image" />
+            <p>@news.Content</p>
+            <small>Posted on @news.PublishedOn.ToString("MMMM dd, yyyy")</small>
+        </div>
+    }
+</div>
+
+@section Styles {
+    <link href="~/css/allNews.css" rel="stylesheet" />
+}
