@@ -34,12 +34,10 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" asp-controller="News" asp-action="Index">All News</a>
-                                            @if (User.Identity.IsAuthenticated)
+                                            @if (User?.Identity?.IsAuthenticated ?? false)
                                             {
                                                 <a class="dropdown-item" asp-controller="News" asp-action="MyNews">News Published by Me</a>
                                                 <a class="dropdown-item" asp-controller="News" asp-action="Create">Publish News</a>
-                                                <a class="dropdown-item" asp-controller="News" asp-action="Delete">Delete News</a>
-                                                <a class="dropdown-item" asp-controller="News" asp-action="Edit">Edit News</a>
                                             }
                                         </div>
                                     </li>

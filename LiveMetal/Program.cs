@@ -1,6 +1,7 @@
 using LiveMetal.Infrastructure.Data;
 using LiveMetal.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +17,11 @@ namespace LiveMetal
             builder.Services.AddApplicationIdentity(builder.Configuration);
             builder.Services.AddApplicationServices();
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                //options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             builder.Services.AddMemoryCache();
 
