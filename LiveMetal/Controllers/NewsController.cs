@@ -1,4 +1,5 @@
 ﻿using LiveMetal.Core.Contracts;
+using LiveMetal.Core.Exceptions;
 using LiveMetal.Core.Models.News;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,22 +29,15 @@ namespace LiveMetal.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var news = await _newsService.GetNewsByIdAsync(id);
-            if (news == null)
+            try
             {
-                return NotFound();
+                var viewModel = await _newsService.GetNewsByIdAsync(id);
+                return View(viewModel);
             }
-
-            var viewModel = new NewsViewModel
+            catch (NewsNotFoundException ex)
             {
-                Id = news.Id,
-                Title = news.Title,
-                Content = news.Content,
-                ImageUrl = news.ImageUrl,
-                PublishedOn = news.PublishedOn
-            };
-
-            return View(viewModel);
+                return NotFound(ex.Message);
+            }
         }
     }
 }
