@@ -25,6 +25,7 @@ namespace LiveMetal.Controllers
         }
 
         [AllowAnonymous]
+        [Route("Home/Error/{statusCode}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)
         {
@@ -36,6 +37,11 @@ namespace LiveMetal.Controllers
             if (statusCode == 401)
             {
                 return View("Error401");
+            }
+
+            if (statusCode == 404)
+            {
+                return View("Error404");
             }
 
             return View();
