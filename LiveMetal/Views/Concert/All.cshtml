@@ -34,8 +34,11 @@
                                 </div>
                             }
                         </div>
-                        <button class="carousel-control left-arrow" onclick="moveSlide('@concert.ConcertId', -1)">&#10094;</button>
-                        <button class="carousel-control right-arrow" onclick="moveSlide('@concert.ConcertId', 1)">&#10095;</button>
+                        @if (concert.Reviews.Count() > 1)
+                        {
+                            <button class="carousel-control left-arrow" onclick="moveSlide('@concert.ConcertId', -1)">&#10094;</button>
+                            <button class="carousel-control right-arrow" onclick="moveSlide('@concert.ConcertId', 1)">&#10095;</button>
+                        }
                     </div>
                 }
                 else
@@ -45,12 +48,12 @@
             </div>
         </div>
     }
-</div>
+    }
 
-@section Scripts {
-    <script src="~/js/allConcerts.js" asp-append-version="true"></script>
-}
+    @section Scripts {
+        <script src="~/js/allConcerts.js" asp-append-version="true"></script>
+    }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/allConcerts.css" />
-}
+    @section Styles {
+        <link rel="stylesheet" href="~/css/allConcerts.css" />
+    }
