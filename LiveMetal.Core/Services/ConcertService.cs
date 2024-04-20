@@ -38,6 +38,7 @@ namespace LiveMetal.Core.Services
                     Description = c.Description,
                     Name = c.Name,
                     TicketPrice = c.TicketPrice,
+                    ConcertPicture = c.Band.BandImageUrl,
                     VenueName = c.Venue.Name,
                     Reviews = c.Reviews
                         .OrderByDescending(r => r.ReviewId)

@@ -182,7 +182,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Genre = "Death Metal",
                 FormationYear = new DateTime(1993, 11, 1),
                 Biography = "Nile is an American death metal band from Greenville, South Carolina, formed in 1993. The band is known for its technical and complex style of death metal.",
-                BandImageUrl = "https://static.wikia.nocookie.net/logopedia/images/6/6f/Nileband_logo.jpg/revision/latest?cb=20160624042213"
+                BandImageUrl = "https://deadrhetoric.com/wp-content/uploads/2015/08/nile-band-2015.jpg"
             };
 
             BlackMetalBand = new Band

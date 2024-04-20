@@ -4,13 +4,13 @@
     ViewData["Title"] = "All Concerts";
 }
 
-<h1>All Concerts</h1>
-
-<div class="container mt-4">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">All Concerts</h1>
     @foreach (var concert in Model)
     {
-        <div class="card mb-3">
-            <div class="card-header">
+        <div class="card mb-3 shadow-sm">
+            <img src="@concert.ConcertPicture" class="card-img-top" alt="Image of @concert.Name" onerror="this.style.display='none';">
+            <div class="card-header text-center">
                 <h3>@concert.Name</h3>
                 <small>@concert.Date @concert.Time</small>
             </div>
@@ -24,7 +24,7 @@
                 <div id="reviews-@concert.ConcertId" class="reviews-container" style="display:none;">
                     @foreach (var review in concert.Reviews)
                     {
-                        <div>
+                        <div class="review-item">
                             <strong>@review.Title by @review.UserName on @review.IssuedOn</strong>
                             <p>@review.Content</p>
                             <span class="badge bg-primary">@review.Rating stars</span>
@@ -38,4 +38,8 @@
 
 @section Scripts {
     <script src="~/js/allConcerts.js" asp-append-version="true"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/allConcerts.css" />
 }

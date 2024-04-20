@@ -4,9 +4,8 @@
         button.addEventListener('click', function () {
             var targetId = this.getAttribute('data-target');
             var targetElement = document.querySelector(targetId);
-            var isVisible = targetElement.style.display === 'block';
-            targetElement.style.display = isVisible ? 'none' : 'block';
-            this.textContent = isVisible ? 'Show Reviews' : 'Hide Reviews';
+            $(targetElement).slideToggle();
+            this.textContent = targetElement.style.display === 'none' ? 'Show Reviews' : 'Hide Reviews';
         });
     });
 });
