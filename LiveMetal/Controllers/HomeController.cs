@@ -25,7 +25,6 @@ namespace LiveMetal.Controllers
         }
 
         [AllowAnonymous]
-        [Route("Home/Error/{statusCode}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)
         {
