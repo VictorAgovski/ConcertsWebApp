@@ -1,4 +1,5 @@
 ﻿using LiveMetal.Core.Contracts;
+using LiveMetal.Core.Exceptions;
 using LiveMetal.Core.Models.News;
 using LiveMetal.Infrastructure.Data.Common;
 using LiveMetal.Infrastructure.Data.Models;
@@ -27,7 +28,7 @@ namespace LiveMetal.Core.Services
                 .OrderByDescending(n => n.PublishedOn)
                 .Select(n => new NewsViewModel
                 {
-                    Id = n.UserId,
+                    Id = n.NewsId,
                     Title = n.Title,
                     Content = n.Content,
                     PublishedOn = n.PublishedOn,
@@ -53,13 +54,36 @@ namespace LiveMetal.Core.Services
                 .Take(3)
                 .Select(n => new NewsViewModel
                 {
-                    Id = n.UserId,
+                    Id = n.NewsId,
                     Title = n.Title,
                     Content = n.Content,
                     PublishedOn = n.PublishedOn,
                     ImageUrl = n.ImageUrl
                 })
                 .ToListAsync();
+        }
+
+        public async Task<NewsViewModel> GetNewsByIdAsync(int id)
+        {
+            var newsItem = await _repository
+                .AllReadOnly<News>()
+                .Where(n => n.NewsId == id)
+                .Select(n => new NewsViewModel
+                {
+                    Id = n.NewsId,
+                    Title = n.Title,
+                    Content = n.Content,
+                    ImageUrl = n.ImageUrl,
+                    PublishedOn = n.PublishedOn
+                })
+                .FirstOrDefaultAsync();
+
+            if (newsItem == null)
+            {
+                throw new NewsNotFoundException(id);
+            }
+
+            return newsItem;
         }
     }
 }

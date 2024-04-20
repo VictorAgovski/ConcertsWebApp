@@ -1,4 +1,5 @@
 ﻿using LiveMetal.Core.Contracts;
+using LiveMetal.Core.Models.News;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,28 @@ namespace LiveMetal.Controllers
         {
             var allNews = await _newsService.GetAllNewsAsync();
             return View(allNews);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var news = await _newsService.GetNewsByIdAsync(id);
+            if (news == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new NewsViewModel
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Content = news.Content,
+                ImageUrl = news.ImageUrl,
+                PublishedOn = news.PublishedOn
+            };
+
+            return View(viewModel);
         }
     }
 }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LiveMetal.Infrastructure.Constants.DataConstants;
 
 namespace LiveMetal.Core.Models.News
 {
     public class NewsViewModel
     {
-        public string Id { get; set; } = string.Empty;
+        public int Id { get; set; }
 
         public string Title { get; set; } = string.Empty;
 
@@ -16,7 +17,7 @@ namespace LiveMetal.Core.Models.News
 
         public DateTime PublishedOn { get; set; }
 
-        public string FormattedDate => PublishedOn.ToString("MMMM dd, yyyy");
+        public string FormattedDate => PublishedOn.ToString(DateFormat);
 
         public string ImageUrl { get; set; } = string.Empty;
     }
