@@ -37,11 +37,24 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="reviewsDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Reviews
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="reviewsDropdown">
+                                <a class="dropdown-item" asp-controller="Review" asp-action="All">All Reviews</a>
+                                @if (User?.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <a class="dropdown-item" asp-controller="Review" asp-action="Create">Publish Reviews</a>
+                                }
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 News
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div class="dropdown-menu" aria-labelledby="newsDropdown">
                                 <a class="dropdown-item" asp-controller="News" asp-action="All">All News</a>
                                 @if (User?.Identity?.IsAuthenticated ?? false)
                                 {
@@ -49,9 +62,6 @@
                                     <a class="dropdown-item" asp-controller="News" asp-action="Create">Publish News</a>
                                 }
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reviews" asp-action="Index">Reviews</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
