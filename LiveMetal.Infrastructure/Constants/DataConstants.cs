@@ -81,5 +81,10 @@ namespace LiveMetal.Infrastructure.Constants
 
         public const int NewsContentMaxLength = 1000;
         public const int NewsContentMinLength = 10;
+
+        // DateAndTimeFormats
+
+        public const string DateFormat = "dd/MM/yyyy";
+        public const string TimeFormat = "HH:mm";
     }
 }
