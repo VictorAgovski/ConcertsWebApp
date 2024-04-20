@@ -9,7 +9,7 @@
     @foreach (var concert in Model)
     {
         <div class="card mb-3 shadow-sm">
-            <img src="@concert.ConcertPicture" class="card-img-top" alt="Image of @concert.Name" onerror="this.style.display='none';">
+            <img src="@concert.ConcertPicture" class="card-img-top" alt="Image of @concert.Name">
             <div class="card-header text-center">
                 <h3>@concert.Name</h3>
                 <small>@concert.Date @concert.Time</small>
@@ -20,17 +20,28 @@
                 <p class="card-text"><strong>Ticket Price:</strong> $@concert.TicketPrice</p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary toggle-reviews" data-target="#reviews-@concert.ConcertId">Show Reviews</button>
-                <div id="reviews-@concert.ConcertId" class="reviews-container" style="display:none;">
-                    @foreach (var review in concert.Reviews)
-                    {
-                        <div class="review-item">
-                            <strong>@review.Title by @review.UserName on @review.IssuedOn</strong>
-                            <p>@review.Content</p>
-                            <span class="badge bg-primary">@review.Rating stars</span>
+                <button class="btn btn-primary toggle-reviews" data-target="#carousel-@concert.ConcertId" aria-expanded="false">Show Reviews</button>
+                @if (concert.Reviews.Any())
+                {
+                    <div id="carousel-@concert.ConcertId" class="carousel-container" style="display:none;">
+                        <div class="review-carousel">
+                            @foreach (var review in concert.Reviews)
+                            {
+                                <div class="review-item carousel-slide">
+                                    <strong>@review.Title by @review.UserName on @review.IssuedOn</strong>
+                                    <p>@review.Content</p>
+                                    <span class="badge bg-primary">@review.Rating stars</span>
+                                </div>
+                            }
                         </div>
-                    }
-                </div>
+                        <button class="carousel-control left-arrow" onclick="moveSlide('@concert.ConcertId', -1)">&#10094;</button>
+                        <button class="carousel-control right-arrow" onclick="moveSlide('@concert.ConcertId', 1)">&#10095;</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center p-2">No reviews available.</div>
+                }
             </div>
         </div>
     }

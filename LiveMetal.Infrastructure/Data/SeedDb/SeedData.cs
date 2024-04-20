@@ -52,6 +52,8 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
 
         public Review ThirdReview { get; set; }
 
+        public Review FourthReview { get; set; }
+
         public Venue FirstVenue { get; set; }
 
         public Venue SecondVenue { get; set; }
@@ -358,6 +360,18 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Title = "Brutal performance!",
                 Rating = 5,
                 Content = "Nile were brutal! I loved every second of the concert!",
+                IssuedOn = new DateTime(2024, 8, 31)
+            };
+
+            FourthReview = new Review
+            {
+                ReviewId = 4,
+                BandId = 3,
+                ConcertId = 3,
+                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
+                Title = "Nile were amazing!",
+                Rating = 5,
+                Content = "Nile were amazing! I had a great time at the concert!",
                 IssuedOn = new DateTime(2024, 8, 31)
             };
         }

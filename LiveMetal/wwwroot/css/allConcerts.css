@@ -50,3 +50,51 @@
 .review-item:last-child {
     border-bottom: none;
 }
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.review-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    max-width: 100%; 
+}
+
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    z-index: 10;
+}
+
+.left-arrow, .right-arrow {
+    display: none;
+}
+
+.review-carousel:only-child {
+    justify-content: center;
+}
+
+
+.left-arrow {
+    left: 0;
+}
+
+.right-arrow {
+    right: 0;
+}
