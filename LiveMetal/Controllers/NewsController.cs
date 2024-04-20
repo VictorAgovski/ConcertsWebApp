@@ -17,7 +17,7 @@ namespace LiveMetal.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> All()
         {
             var allNews = await _newsService.GetAllNewsAsync();
             return View(allNews);
