@@ -1,4 +1,5 @@
 ﻿@using LiveMetal.Core.Models.Concert
+@using System.Security.Claims
 @model IEnumerable<ConcertViewModel>
 @{
     ViewData["Title"] = "All Concerts";
@@ -19,6 +20,16 @@
                 <p class="card-text">@concert.Description</p>
                 <p class="card-text"><strong>Ticket Price:</strong> $@concert.TicketPrice</p>
             </div>
+            <div class="card-footer">
+                <a class="btn btn-secondary" asp-controller="Concert" asp-action="Details" asp-route-id="@concert.ConcertId">Details</a>
+
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || @concert.CreatorId == User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                {
+                    <a class="btn btn-info" asp-controller="Concert" asp-action="Edit" asp-route-id="@concert.ConcertId">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Concert" asp-action="Delete" asp-route-id="@concert.ConcertId">Delete</a>
+                }
+            </div>
+
             <div class="card-footer">
                 <button class="btn btn-primary toggle-reviews" data-target="#carousel-@concert.ConcertId" aria-expanded="false">Show Reviews</button>
                 @if (concert.Reviews.Any())

@@ -53,12 +53,19 @@ namespace LiveMetal.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ConcertViewModel model)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            await _concertService.CreateConcertAsync(model);
+            await _concertService.CreateConcertAsync(model, userId);
             return RedirectToAction("All");
         }
     }

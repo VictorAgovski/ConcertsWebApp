@@ -12,6 +12,8 @@ namespace LiveMetal.Core.Models.Concert
     {
         public int ConcertId { get; set; }
 
+        public string? CreatorId { get; set; }
+
         public string ConcertPicture { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;

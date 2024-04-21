@@ -4,6 +4,7 @@ using LiveMetal.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiveMetal.Infrastructure.Migrations
 {
     [DbContext(typeof(LiveMetalDbContext))]
-    partial class LiveMetalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240421124047_UpdateForeignKeyConstraint")]
+    partial class UpdateForeignKeyConstraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,7 +107,7 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e37fca1-4964-4cb1-a42c-fb69d0744afd",
+                            ConcurrencyStamp = "4238358c-2d69-46fe-a855-5c0cf954b685",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Guest",
@@ -113,10 +115,10 @@ namespace LiveMetal.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHXLiRDp1fLs37SYZhYaveLCK/+3ncOKRhlMZVkyqeazcfpsj+zkSn6cJadhnw4Xaw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMxwNuuUYlZu04sE/gCJEozhd4hmQDSfCpprhYRB1/O/c+w9It42aUdTKiqAllcKug==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://ohsobserver.com/wp-content/uploads/2022/12/Guest-user.png",
-                            SecurityStamp = "2917506c-4910-4a39-a58b-c43550f385a2",
+                            SecurityStamp = "1defe597-58c5-4cbb-b8d8-3dcbaa911357",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -124,7 +126,7 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             Id = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "54ce0eef-78d8-4aef-9fff-bf5cb52ce2c5",
+                            ConcurrencyStamp = "94f70680-6a4d-4d4f-8821-63aed00d3173",
                             Email = "registered@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Registered",
@@ -132,10 +134,10 @@ namespace LiveMetal.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "registered@mail.com",
                             NormalizedUserName = "registered@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAGE+GXcDiFkYkayW8NMpr+aq/2KpFVOOijEnCxBouQJJp3VRYKAVioJDV8fpd+YCw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHOYo25/1QlnKFExJJ/k83HfVtBn5KoALhtikud/i0KpXyTrTLMCcg/0Tp6y3n5/9w==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.pngkey.com/png/detail/73-730394_admin-approved-user-registration-user-registration-icon-png.png",
-                            SecurityStamp = "80f2d105-e74e-474c-94f7-1b1041622861",
+                            SecurityStamp = "fdd2f520-3e2b-44ff-90de-d6256d118302",
                             TwoFactorEnabled = false,
                             UserName = "registered@mail.com"
                         },
@@ -143,7 +145,7 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             Id = "f3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "469b60df-c487-4b21-bfda-e0758b3f944b",
+                            ConcurrencyStamp = "cd41a9c8-6ec7-4ef0-9eb5-3c9f2fe69631",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -151,10 +153,10 @@ namespace LiveMetal.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@mail.com",
                             NormalizedUserName = "admin@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDNXGUp0mAiWOjx7VlXGR3b6HS/94o6VIjpraH9hwQWIqrutcIzQ1N7WUHy5Jgm9cA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB2n1MJaFUNeqEcoi0mwYHVKBviaJcXjlvmihFudQQOS/LDNaIBxFcbKMEsDQ2nYqw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.wpeka.com/rgh/wp-content/uploads/2014/03/Changing-the-default-admin-user-in-WordPress1-e1462965535256.jpg",
-                            SecurityStamp = "f0abf717-010f-4920-afe2-1bc63f067d39",
+                            SecurityStamp = "5b00659e-34d0-4a58-b29b-f33bbc1540f5",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com"
                         });
@@ -303,7 +305,6 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             ConcertId = 1,
                             BandId = 1,
-                            CreatorId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                             Date = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Iron Maiden are coming to London as part of their Legacy of the Beast Tour. Don't miss this unique opportunity to see one of the greatest heavy metal bands of all time!",
                             Name = "Iron Maiden - Legacy of the Beast Tour",
@@ -315,7 +316,6 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             ConcertId = 2,
                             BandId = 2,
-                            CreatorId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                             Date = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Metallica are coming to London as part of their WorldWired Tour. Don't miss this unique opportunity to see one of the greatest thrash metal bands of all time!",
                             Name = "Metallica - WorldWired Tour",
@@ -327,7 +327,6 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             ConcertId = 3,
                             BandId = 3,
-                            CreatorId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                             Date = new DateTime(2024, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Nile are coming to London as part of their Vile Nilotic Rites Tour. Don't miss this unique opportunity to see one of the greatest death metal bands of all time!",
                             Name = "Nile - Vile Nilotic Rites Tour",

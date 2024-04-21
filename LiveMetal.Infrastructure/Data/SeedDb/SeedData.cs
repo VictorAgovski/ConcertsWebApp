@@ -296,6 +296,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 VenueId = 1,
                 Date = new DateTime(2024, 6, 1),
                 Time = new DateTime(2024, 6, 1, 20, 0, 0),
+                CreatorId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                 TicketPrice = 50,
                 Description = "Iron Maiden are coming to London as part of their Legacy of the Beast Tour. Don't miss this unique opportunity to see one of the greatest heavy metal bands of all time!"
             };
@@ -308,6 +309,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 VenueId = 2,
                 Date = new DateTime(2024, 7, 15),
                 Time = new DateTime(2024, 7, 15, 19, 0, 0),
+                CreatorId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                 TicketPrice = 60,
                 Description = "Metallica are coming to London as part of their WorldWired Tour. Don't miss this unique opportunity to see one of the greatest thrash metal bands of all time!"
             };
@@ -320,6 +322,7 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 VenueId = 3,
                 Date = new DateTime(2024, 8, 30),
                 Time = new DateTime(2024, 8, 30, 19, 30, 0),
+                CreatorId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                 TicketPrice = 40,
                 Description = "Nile are coming to London as part of their Vile Nilotic Rites Tour. Don't miss this unique opportunity to see one of the greatest death metal bands of all time!"
             };

@@ -15,7 +15,7 @@
             <p class="news-content">@news.Content</p>
             <small class="news-date">Posted on @news.FormattedDate</small>
             <img src="@news.ImageUrl" alt="News image" class="news-image">
-            <p class="news-content">@news.Content.Substring(0, 100)...</p>
+            <p class="news-content">@((news.Content.Length > 100 ? news.Content.Substring(0, 100) + "..." : news.Content))</p>
             <a href="@Url.Action("Details", "News", new { id = news.Id })" class="read-more">Read More</a>
 
         </div>

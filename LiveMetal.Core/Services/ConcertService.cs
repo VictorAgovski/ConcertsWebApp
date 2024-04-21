@@ -23,7 +23,7 @@ namespace LiveMetal.Core.Services
             _repository = repository;
         }
 
-        public async Task CreateConcertAsync(ConcertViewModel model)
+        public async Task CreateConcertAsync(ConcertViewModel model, string userId)
         {
             var concert = new Concert
             {
@@ -32,8 +32,9 @@ namespace LiveMetal.Core.Services
                 Time = DateTime.Parse(model.Time),
                 Description = model.Description,
                 Name = model.Name,
+                CreatorId = userId,
                 TicketPrice = model.TicketPrice,
-                VenueId = (int)model.VenueId,
+                VenueId = (int)model.VenueId
             };
 
             await _repository.AddAsync(concert);
@@ -54,6 +55,7 @@ namespace LiveMetal.Core.Services
                     Time = c.Time.ToString(TimeFormat),
                     Description = c.Description,
                     Name = c.Name,
+                    CreatorId = c.CreatorId,
                     TicketPrice = c.TicketPrice,
                     ConcertPicture = c.Band.BandImageUrl,
                     VenueName = c.Venue.Name,

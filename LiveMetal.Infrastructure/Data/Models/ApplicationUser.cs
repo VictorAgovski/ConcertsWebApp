@@ -30,5 +30,7 @@ namespace LiveMetal.Infrastructure.Data.Models
         public List<UserFavourite> UserFavourites { get; set; } = new List<UserFavourite>();
 
         public List<News> NewsByUser { get; set; } = new List<News>();
+
+        public List<Concert> Concerts { get; set; } = new List<Concert>();
     }
 }

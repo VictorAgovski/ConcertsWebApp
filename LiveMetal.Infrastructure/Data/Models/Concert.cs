@@ -55,6 +55,12 @@ namespace LiveMetal.Infrastructure.Data.Models
         [ForeignKey(nameof(VenueId))]
         public Venue? Venue { get; set; }
 
+        [Comment("Concert creator unique identifier - foreign key")]
+        public string? CreatorId { get; set; }
+
+        [ForeignKey(nameof(CreatorId))]
+        public ApplicationUser? Creator { get; set; }
+
         public List<Review> Reviews { get; set; } = new List<Review>();
     }
 }
