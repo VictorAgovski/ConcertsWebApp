@@ -60,12 +60,38 @@
                                 <a class="dropdown-item" asp-controller="Review" asp-action="All">All Reviews</a>
                                 @if (User?.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <a class="dropdown-item" asp-controller="Review" asp-action="Create">Publish Reviews</a>
+                                    <a class="dropdown-item" asp-controller="Review" asp-action="Create">Publish a Review</a>
                                 }
                             </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="bandsDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Bands
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="bandsDropdown">
+                                <a class="dropdown-item" asp-controller="Band" asp-action="All">All Bands</a>
+                                @if (User?.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <a class="dropdown-item" asp-controller="Band" asp-action="Create">Announce a Band</a>
+                                }
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="venuesDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Venues
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="venuesDropdown">
+                                <a class="dropdown-item" asp-controller="Venue" asp-action="All">All Venues</a>
+                                @if (User?.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <a class="dropdown-item" asp-controller="Venue" asp-action="Create">Open a Venue</a>
+                                }
+                            </div>
                         </li>
                     </ul>
                 </div>
