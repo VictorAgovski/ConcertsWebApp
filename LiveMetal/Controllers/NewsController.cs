@@ -1,8 +1,12 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Exceptions;
+using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.News;
+using LiveMetal.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace LiveMetal.Controllers
 {
@@ -38,6 +42,31 @@ namespace LiveMetal.Controllers
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View(new NewsCreateViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewsCreateViewModel model)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await _newsService.CreateNewsAsync(model, userId);
+            return RedirectToAction("All");
         }
     }
 }

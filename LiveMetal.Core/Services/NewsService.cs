@@ -85,5 +85,20 @@ namespace LiveMetal.Core.Services
 
             return newsItem;
         }
+
+        public async Task CreateNewsAsync(NewsCreateViewModel model, string userId)
+        {
+            var news = new News
+            {
+                Title = model.Title,
+                Content = model.Content,
+                PublishedOn = DateTime.Now,
+                ImageUrl = model.ImageUrl,
+                UserId = userId
+            };
+
+            await _repository.AddAsync(news);
+            await _repository.SaveChangesAsync();
+        }
     }
 }

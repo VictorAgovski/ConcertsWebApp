@@ -19,6 +19,6 @@ namespace LiveMetal.Core.Models.News
 
         public string FormattedDate => PublishedOn.ToString(DateFormat);
 
-        public string ImageUrl { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; } = string.Empty;
     }
 }
