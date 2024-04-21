@@ -12,5 +12,7 @@ namespace LiveMetal.Core.Contracts
         Task<IEnumerable<ConcertViewModel>> GetAllConcerts();
 
         Task<IEnumerable<ConcertViewModel>> RatedConcertsByUserId(string userId);
+
+        Task CreateConcertAsync(ConcertViewModel model);
     }
 }

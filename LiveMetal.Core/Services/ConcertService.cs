@@ -23,6 +23,23 @@ namespace LiveMetal.Core.Services
             _repository = repository;
         }
 
+        public async Task CreateConcertAsync(ConcertViewModel model)
+        {
+            var concert = new Concert
+            {
+                BandId = (int)model.BandId,
+                Date = DateTime.Parse(model.Date),
+                Time = DateTime.Parse(model.Time),
+                Description = model.Description,
+                Name = model.Name,
+                TicketPrice = model.TicketPrice,
+                VenueId = (int)model.VenueId,
+            };
+
+            await _repository.AddAsync(concert);
+            await _repository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<ConcertViewModel>> GetAllConcerts()
         {
             return await _repository
