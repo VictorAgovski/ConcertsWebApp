@@ -1,0 +1,34 @@
+﻿@using static LiveMetal.Infrastructure.Constants.DataConstants;
+@using LiveMetal.Core.Models.Band
+@model IEnumerable<BandAllFeaturesViewModel>
+
+@{
+    ViewData["Title"] = "All Bands";
+}
+
+<h1>All Bands</h1>
+
+<div class="container">
+    @foreach (var band in Model)
+    {
+        <div class="card mb-3">
+            <img src="@band.BandImageUrl" class="card-img-top" alt="Image of @band.Name">
+            <div class="card-body">
+                <h5 class="card-title">@band.Name</h5>
+                <p class="card-text">@band.Biography</p>
+                <p><strong>Genre:</strong> @band.Genre</p>
+                <p><strong>Formation Year:</strong> @band.FormationYear.ToString(DateFormat)</p>
+                <h6>Members:</h6>
+                <ul>
+                    @foreach (var member in band.Members)
+                    {
+                        <li>
+                            @member.Name (@member.Role) -
+                            <a href="@Url.Action("MemberDetails", "Band", new { memberId = member.Id })">View Details</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>

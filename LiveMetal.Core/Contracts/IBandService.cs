@@ -10,5 +10,7 @@ namespace LiveMetal.Core.Contracts
     public interface IBandService
     {
         Task<IEnumerable<BandViewModel>> GetAllBands();
+
+        Task<IEnumerable<BandAllFeaturesViewModel>> GetAllBandsWithFeatures();
     }
 }
