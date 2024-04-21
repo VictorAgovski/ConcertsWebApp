@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LiveMetal.Core.Contracts;
+using System.Security.Claims;
 
 namespace LiveMetal.Controllers
 {
@@ -18,6 +19,18 @@ namespace LiveMetal.Controllers
         {
             var allConcerts = await _concertService.GetAllConcerts();
             return View(allConcerts);
+        }
+
+        public async Task<IActionResult> Rated()
+        {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var ratedConcerts = await _concertService.RatedConcertsByUserId(userId);
+                return View(ratedConcerts);
+            }
+
+            return RedirectToAction("Login", "Account");
         }
     }
 }

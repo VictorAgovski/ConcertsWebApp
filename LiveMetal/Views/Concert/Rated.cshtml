@@ -1,0 +1,50 @@
+﻿@using LiveMetal.Core.Models.Concert
+@model IEnumerable<ConcertViewModel>
+
+@{
+    ViewData["Title"] = "Rated Concerts";
+}
+
+<h1>Rated Concerts</h1>
+
+@if (Model.Any())
+{
+    <div class="container">
+        @foreach (var concert in Model)
+        {
+            <div class="card mb-3">
+                <img src="@concert.ConcertPicture" class="card-img-top" alt="Image of @concert.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@concert.Name</h5>
+                    <p class="card-subtitle mb-2 text-muted">@concert.Date @concert.Time</p>
+                    <p class="card-text">@concert.Description</p>
+                    <p class="card-text"><strong>Band:</strong> @concert.BandName</p>
+                    <p class="card-text"><strong>Venue:</strong> @concert.VenueName</p>
+                    <p class="card-text"><strong>Ticket Price:</strong> $@concert.TicketPrice</p>
+                    <div>
+                        <h6>Reviews</h6>
+                        @foreach (var review in concert.Reviews)
+                        {
+                            <div class="alert alert-secondary">
+                                <strong>@review.Title</strong> by @review.UserName on @review.IssuedOn
+                                <br />
+                                @review.Content
+                                <span class="badge bg-primary">@review.Rating stars</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        No concerts have been rated by you yet.
+    </div>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/ratedConcerts.css" />
+}
