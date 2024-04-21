@@ -24,7 +24,11 @@ namespace LiveMetal.Core.Models.Concert
 
         public decimal TicketPrice { get; set; }
 
+        public int? BandId { get; set; }
+
         public string BandName { get; set; } = string.Empty;
+
+        public int? VenueId { get; set; }
 
         public string VenueName { get; set; } = string.Empty;
 

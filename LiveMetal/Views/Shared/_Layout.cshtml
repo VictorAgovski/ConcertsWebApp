@@ -33,6 +33,7 @@
                                 @if (User?.Identity?.IsAuthenticated ?? false)
                                 {
                                     <a class="dropdown-item" asp-controller="Concert" asp-action="Rated">Rated Concerts by Me</a>
+                                    <a class="dropdown-item" asp-controller="Concert" asp-action="Create">Publish a Concert</a>
                                 }
                             </div>
                         </li>       

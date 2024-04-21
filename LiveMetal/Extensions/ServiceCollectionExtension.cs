@@ -15,6 +15,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IConcertService, ConcertService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IBandService, BandService>();
+            services.AddScoped<IVenueService, VenueService>();
 
             return services;
         }
