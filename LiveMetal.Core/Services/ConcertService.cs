@@ -45,7 +45,7 @@ namespace LiveMetal.Core.Services
             return await _repository
                 .AllReadOnly<Concert>()
                 .Include(c => c.Reviews)
-                .OrderByDescending(n => n.Date)
+                .OrderBy(n => n.Date)
                 .Select(c => new ConcertViewModel
                 {
                     ConcertId = c.ConcertId,
