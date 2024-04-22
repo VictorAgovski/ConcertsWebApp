@@ -1,10 +1,5 @@
-using LiveMetal.Infrastructure.Data;
-using LiveMetal.Infrastructure.Data.Models;
 using LiveMetal.ModelBinders;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace LiveMetal
 {
