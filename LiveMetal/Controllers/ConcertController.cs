@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using LiveMetal.Core.Contracts;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Models.Concert;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace LiveMetal.Controllers
 {

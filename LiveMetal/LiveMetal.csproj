@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\_Layout.cshtml.css" />
+    <None Include="wwwroot\css\_layout.css" />
   </ItemGroup>
 
   <ItemGroup>
