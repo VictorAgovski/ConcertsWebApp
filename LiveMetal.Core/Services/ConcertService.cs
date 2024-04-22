@@ -23,7 +23,7 @@ namespace LiveMetal.Core.Services
             _repository = repository;
         }
 
-        public async Task CreateConcertAsync(ConcertViewModel model, string userId)
+        public async Task CreateConcertAsync(ConcertCreateViewModel model, string userId)
         {
             var concert = new Concert
             {

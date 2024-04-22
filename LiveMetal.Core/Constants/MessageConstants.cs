@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LiveMetal.Core.Constants
 {
-    public class MessageConstants
+    public static class MessageConstants
     {
         public const string RequiredMessage = "The {0} field is required";
 

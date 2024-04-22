@@ -47,11 +47,11 @@ namespace LiveMetal.Controllers
             ViewBag.Bands = new SelectList(await _bandService.GetAllBands(), "Id", "Name");
             ViewBag.Venues = new SelectList(await _venueService.GetAllVenues(), "Id", "Name");
 
-            return View(new ConcertViewModel());
+            return View(new ConcertCreateViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ConcertViewModel model)
+        public async Task<IActionResult> Create(ConcertCreateViewModel model)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
