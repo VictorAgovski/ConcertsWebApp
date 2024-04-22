@@ -1,0 +1,12 @@
+﻿.card-header h2 {
+    color: #007bff; /* Example styling for venue names */
+}
+
+.card-body ul {
+    list-style-type: none; /* Removing bullets from the list */
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Adding some shadow for better visibility */
+}

@@ -1,0 +1,44 @@
+﻿@using LiveMetal.Core.Models.Venue
+@model IEnumerable<VenueAllFeaturesViewModel>
+
+@{
+    ViewData["Title"] = "All Venues";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container mt-4">
+    @foreach (var venue in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                <h2>@venue.Name</h2>
+                <h5>Location: @venue.Location</h5>
+                <h6>Capacity: @venue.Capacity</h6>
+                <h6>Contact Info: @venue.ContactInfo</h6>
+            </div>
+            <div class="card-body">
+                <h5>Concerts:</h5>
+                @if (venue.Concerts.Any())
+                {
+                    <ul>
+                        @foreach (var concert in venue.Concerts)
+                        {
+                            <li>
+                                @concert.Name - @concert.Date (@concert.Time) - $@concert.TicketPrice
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No concerts scheduled.</p>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Styles {
+<link rel="stylesheet" href="~/css/allVenues.css" />
+}

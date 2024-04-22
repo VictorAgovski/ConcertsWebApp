@@ -10,5 +10,7 @@ namespace LiveMetal.Core.Contracts
     public interface IVenueService
     {
         Task<IEnumerable<VenueViewModel>> GetAllVenues();
+
+        Task<IEnumerable<VenueAllFeaturesViewModel>> GetAllVenuesWithFeatures();
     }
 }
