@@ -69,5 +69,32 @@ namespace LiveMetal.Core.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task CreateBandAsync(BandCreateViewModel model)
+        {
+            var band = new Band
+            {
+                Name = model.Name,
+                Genre = model.Genre,
+                Biography = model.Biography,
+                BandImageUrl = model.BandImageUrl,
+                FormationYear = model.FormationYear,
+                BandMembers = model.Members.Select(m => new Member
+                {
+                    FullName = m.FullName,
+                    Role = m.Role,
+                    Biography = m.Biography,
+                    DateOfBirth = m.DateOfBirth,
+                    DateOfJoining = m.DateOfJoining
+                })
+                .ToList()
+            };
+
+            await _repository.AddAsync<Band>(band);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task<Band> GetBandById(int bandId) 
+            => await _repository.GetByIdAsync<Band>(bandId);
     }
 }

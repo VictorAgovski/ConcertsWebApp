@@ -1,0 +1,43 @@
+﻿@model LiveMetal.Core.Models.Band.BandCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Band";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name">Band Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Genre">Genre</label>
+        <input asp-for="Genre" class="form-control" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Biography">Biography</label>
+        <textarea asp-for="Biography" class="form-control"></textarea>
+        <span asp-validation-for="Biography" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FormationYear">Formation Year</label>
+        <input asp-for="FormationYear" type="date" class="form-control" />
+        <span asp-validation-for="FormationYear" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BandImageUrl">Band Image</label>
+        <input asp-for="BandImageUrl" class="form-control" />
+        <span asp-validation-for="BandImageUrl" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create Band</button>
+</form>

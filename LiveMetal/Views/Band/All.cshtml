@@ -1,5 +1,4 @@
-﻿@using static LiveMetal.Infrastructure.Constants.DataConstants;
-@using LiveMetal.Core.Models.Band
+﻿@using LiveMetal.Core.Models.Band
 @model IEnumerable<BandAllFeaturesViewModel>
 
 @{
@@ -17,7 +16,7 @@
                 <h5 class="card-title">@band.Name</h5>
                 <p class="card-text">@band.Biography</p>
                 <p><strong>Genre:</strong> @band.Genre</p>
-                <p><strong>Formation Year:</strong> @band.FormationYear.ToString(DateFormat)</p>
+                <p><strong>Formation Year:</strong> @band.FormationYear.ToString("yyyy")</p>
                 <h6>Members:</h6>
                 <ul>
                     @foreach (var member in band.Members)
@@ -28,7 +27,47 @@
                         </li>
                     }
                 </ul>
+                <button class="btn btn-primary" onclick="toggleMemberForm('@band.BandId')">Add Member</button>
+                <div id="addMemberForm-@band.BandId" class="add-member-form" style="display:none;">
+                    <form asp-action="AddMember" asp-controller="Band" method="post">
+                        <input type="hidden" name="BandId" value="@band.BandId" />
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" name="FullName" class="form-control" required minlength="10" maxlength="100" />
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <input type="text" name="Role" class="form-control" required minlength="3" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <label>Biography</label>
+                            <input type="text" name="Biography" class="form-control" required minlength="10" maxlength="400" />
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" name="DateOfBirth" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Joining</label>
+                            <input type="date" name="DateOfJoining" class="form-control" required />
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     }
 </div>
+
+@section Scripts {
+    <script>
+        function toggleMemberForm(bandId) {
+            var form = document.getElementById('addMemberForm-' + bandId);
+            form.style.display = form.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/bands.css" asp-append-version="true" />
+}

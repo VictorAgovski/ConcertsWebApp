@@ -21,6 +21,22 @@ namespace LiveMetal.Core.Services
             _repository = repository;
         }
 
+        public async Task CreateMemberAsync(BandMemberCreateViewModel model)
+        {
+            var member = new Member
+            {
+                FullName = model.FullName,
+                Role = model.Role,
+                Biography = model.Biography,
+                DateOfBirth = model.DateOfBirth,
+                DateOfJoining = model.DateOfJoining,
+                BandId = model.BandId
+            };
+
+            await _repository.AddAsync(member);
+            await _repository.SaveChangesAsync();
+        }
+
         public async Task<BandMemberDetailedViewModel> GetMemberDetailsById(int memberId)
         {
             return await _repository
