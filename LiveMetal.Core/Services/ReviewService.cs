@@ -5,6 +5,7 @@ using LiveMetal.Infrastructure.Data.Common;
 using LiveMetal.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using static LiveMetal.Infrastructure.Constants.DataConstants;
 
 namespace LiveMetal.Core.Services
@@ -30,6 +31,16 @@ namespace LiveMetal.Core.Services
                 ConcertId = model.ConcertId
             });
 
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task DeleteReviewAsync(Review review)
+        {
+            var reviewToDelete = await _repository.All<Review>()
+                .Where(g => g.ReviewId == review.ReviewId)
+                .FirstOrDefaultAsync();
+
+            await _repository.DeleteAsync<Review>(reviewToDelete.ReviewId);
             await _repository.SaveChangesAsync();
         }
 
@@ -73,19 +84,26 @@ namespace LiveMetal.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<RatingViewModel>> GetRatingsAsync()
+        public async Task<Review> GetReviewByIdAsync(int id)
+            => await _repository.GetByIdAsync<Review>(id);
+
+        public async Task<ReviewDeleteViewModel?> GetReviewDeleteModelByIdAsync(int id)
         {
             return await _repository
                 .AllReadOnly<Review>()
-                .Select(b => new RatingViewModel
+                .Where(c => c.ReviewId == id)
+                .Select(c => new ReviewDeleteViewModel
                 {
-                    Id = b.Rating,
-                    Name = b.Rating.ToString()
+                    ReviewId = c.ReviewId,
+                    Title = c.Title,
+                    Content = c.Content,
+                    Rating = c.Rating,
+                    IssuedOn = c.IssuedOn,
+                    UserId = c.UserId,
+                    ConcertId = c.ConcertId,
+                    ConcertName = c.Concert.Name
                 })
-                .ToListAsync();
+                .FirstOrDefaultAsync();
         }
-
-        public async Task<Review> GetReviewByIdAsync(int id)
-            => await _repository.GetByIdAsync<Review>(id);
     }
 }

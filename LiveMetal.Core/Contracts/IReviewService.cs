@@ -12,8 +12,10 @@ namespace LiveMetal.Core.Contracts
 
         Task AddReviewAsync(ReviewCreateViewModel model, string userId);
 
-        Task<IEnumerable<RatingViewModel>> GetRatingsAsync();
-
         Task<Review> EditReviewAsync(Review model);
+
+        Task DeleteReviewAsync(Review review);
+
+        Task<ReviewDeleteViewModel?> GetReviewDeleteModelByIdAsync(int id);
     }
 }

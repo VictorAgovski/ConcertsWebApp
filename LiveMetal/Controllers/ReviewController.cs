@@ -1,9 +1,12 @@
 ﻿using LiveMetal.Core.Contracts;
+using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.Review;
 using LiveMetal.Infrastructure.Data.Models;
+using LiveMetal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace LiveMetal.Controllers
@@ -33,11 +36,11 @@ namespace LiveMetal.Controllers
         public async Task<IActionResult> Create()
         {
             var concerts = await _concertService.GetAllConcertsAsync();
-            var ratings = await _reviewService.GetRatingsAsync();
+            var ratings = Enumerable.Range(1, 5).Select(i => new SelectListItem{ Value = i.ToString(), Text = i.ToString() });
 
             var model = new ReviewCreateViewModel
             {
-                Ratings = ratings.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }).ToList(),
+                Ratings = ratings.ToList(),
                 Concerts = concerts.Select(c => new SelectListItem { Text = c.Name, Value = c.ConcertId.ToString() }).ToList(),
             };
             return View(model);
@@ -133,6 +136,64 @@ namespace LiveMetal.Controllers
             {
                 ModelState.AddModelError("", "Unable to update the review.");
                 return View(model);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var review = await _reviewService.GetReviewDeleteModelByIdAsync(id);
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            if (review.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return View(review);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id, ConcertDeleteViewModel model)
+        {
+            var review = await _reviewService.GetReviewByIdAsync(id);
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            if (review.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                await _reviewService.DeleteReviewAsync(review);
+                return RedirectToAction("All");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
         }
     }
