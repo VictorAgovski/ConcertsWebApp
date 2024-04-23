@@ -1,4 +1,5 @@
 ﻿using LiveMetal.Core.Models.Band;
+using LiveMetal.Core.Models.Concert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace LiveMetal.Core.Contracts
         Task<IEnumerable<BandViewModel>> GetAllBands();
 
         Task<IEnumerable<BandAllFeaturesViewModel>> GetAllBandsWithFeatures();
+
+        Task<IEnumerable<AllBandsViewModel>> GetAllBandsAsync();
     }
 }

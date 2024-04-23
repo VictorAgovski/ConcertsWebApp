@@ -1,0 +1,63 @@
+﻿@model LiveMetal.Core.Models.Review.ReviewCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Review";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Title">Title</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Content">Content</label>
+                    <textarea asp-for="Content" class="form-control"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Rating">Rating</label>
+                    <select asp-for="Rating" asp-items="@Model.Ratings" class="form-control"></select>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConcertId">Concert</label>
+                    <select asp-for="ConcertId" asp-items="@Model.Concerts" class="form-control">
+                        <option value="">-- Select a Concert --</option>
+                    </select>
+                    <span asp-validation-for="ConcertId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BandId">Band</label>
+                    <select asp-for="BandId" asp-items="@Model.Bands" class="form-control">
+                        <option value="">-- Select a Band --</option>
+                    </select>
+                    <span asp-validation-for="BandId" the="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/reviewCreate.css" asp-append-version="true" />
+}

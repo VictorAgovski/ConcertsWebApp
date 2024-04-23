@@ -1,4 +1,5 @@
 ﻿using LiveMetal.Core.Contracts;
+using LiveMetal.Core.Models.Band;
 using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.News;
 using LiveMetal.Core.Models.Review;
@@ -104,6 +105,18 @@ namespace LiveMetal.Core.Services
                             ConcertName = r.Concert.Name
                         })
                         .ToList()
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<AllConcertsViewModel>> GetAllConcertsAsync()
+        {
+            return await _repository
+                .AllReadOnly<Concert>()
+                .Select(b => new AllConcertsViewModel
+                {
+                    ConcertId = b.ConcertId,
+                    Name = b.Name
                 })
                 .ToListAsync();
         }

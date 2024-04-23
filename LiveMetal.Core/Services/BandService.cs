@@ -1,5 +1,6 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Models.Band;
+using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.Member;
 using LiveMetal.Infrastructure.Data.Common;
 using LiveMetal.Infrastructure.Data.Models;
@@ -53,6 +54,18 @@ namespace LiveMetal.Core.Services
                             Role = m.Role
                         })
                         .ToList()
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<AllBandsViewModel>> GetAllBandsAsync()
+        {
+            return await _repository
+                .AllReadOnly<Band>()
+                .Select(c => new AllBandsViewModel
+                {
+                    BandId = c.BandId,
+                    Name = c.Name,
                 })
                 .ToListAsync();
         }

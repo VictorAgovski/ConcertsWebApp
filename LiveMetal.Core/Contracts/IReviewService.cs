@@ -1,4 +1,5 @@
-﻿using LiveMetal.Core.Models.Review;
+﻿using LiveMetal.Core.Models.Band;
+using LiveMetal.Core.Models.Review;
 using LiveMetal.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,9 @@ namespace LiveMetal.Core.Contracts
         Task<IEnumerable<Review>> GetReviewsByUserIdAsync(string id);
 
         Task<IEnumerable<ReviewViewModel>> GetTopThreeReviewsAsync();
+
+        Task AddReviewAsync(ReviewCreateViewModel model, string userId);
+
+        Task<IEnumerable<RatingViewModel>> GetRatingsAsync();
     }
 }
