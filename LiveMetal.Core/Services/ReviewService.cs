@@ -1,15 +1,8 @@
 ﻿using LiveMetal.Core.Contracts;
-using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.Review;
 using LiveMetal.Infrastructure.Data.Common;
 using LiveMetal.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static LiveMetal.Infrastructure.Constants.DataConstants;
 
 namespace LiveMetal.Core.Services
@@ -33,7 +26,7 @@ namespace LiveMetal.Core.Services
                 IssuedOn = DateTime.UtcNow,
                 UserId = userId,
                 ConcertId = model.ConcertId,
-                BandId = model.BandId
+                BandId = model.BandId,
             });
 
             await _repository.SaveChangesAsync();
@@ -53,7 +46,8 @@ namespace LiveMetal.Core.Services
                     IssuedOn = r.IssuedOn.ToString(DateFormat),
                     Title = r.Title,
                     BandName = r.Band.Name,
-                    ConcertName = r.Concert.Name
+                    ConcertName = r.Concert.Name,
+                    UserId = r.UserId
                 })
                 .ToListAsync();
         }

@@ -106,6 +106,7 @@ namespace LiveMetal.Core.Services
             return await _repository
                 .AllReadOnly<News>()
                 .Where(n => n.UserId == userId)
+                .OrderByDescending(n => n.PublishedOn)
                 .Select(n => new NewsViewModel
                 {
                     Id = n.NewsId,
