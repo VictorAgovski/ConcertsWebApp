@@ -1,0 +1,35 @@
+﻿@using static LiveMetal.Infrastructure.Constants.DataConstants
+@using LiveMetal.Core.Models.News
+@model IEnumerable<NewsViewModel>
+
+@{
+    ViewData["Title"] = "My News";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    @if (Model.Any())
+    {
+        foreach (var news in Model)
+        {
+            <div class="news-item">
+                <h3>@news.Title</h3>
+                @if (!string.IsNullOrEmpty(news.ImageUrl))
+                {
+                    <img src="@news.ImageUrl" alt="Image for @news.Title" class="img-fluid" />
+                }
+                <p>@news.Content</p>
+                <small>Published on @news.PublishedOn.ToString(DateFormat)</small>
+            </div>
+        }
+    }
+    else
+    {
+        <p>You have not published any news yet.</p>
+    }
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/myNews.css" />
+}

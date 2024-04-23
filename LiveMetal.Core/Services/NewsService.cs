@@ -100,5 +100,21 @@ namespace LiveMetal.Core.Services
             await _repository.AddAsync(news);
             await _repository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<NewsViewModel>> GetNewsViewModelByUserIdAsync(string userId)
+        {
+            return await _repository
+                .AllReadOnly<News>()
+                .Where(n => n.UserId == userId)
+                .Select(n => new NewsViewModel
+                {
+                    Id = n.NewsId,
+                    Title = n.Title,
+                    Content = n.Content,
+                    PublishedOn = n.PublishedOn,
+                    ImageUrl = n.ImageUrl
+                })
+                .ToListAsync();
+        }
     }
 }

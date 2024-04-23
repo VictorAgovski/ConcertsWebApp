@@ -19,5 +19,7 @@ namespace LiveMetal.Core.Contracts
         Task<NewsViewModel> GetNewsByIdAsync(int id);
 
         Task CreateNewsAsync(NewsCreateViewModel model, string userId);
+
+        Task<IEnumerable<NewsViewModel>> GetNewsViewModelByUserIdAsync(string userId);
     }
 }

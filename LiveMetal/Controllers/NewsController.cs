@@ -68,5 +68,19 @@ namespace LiveMetal.Controllers
             await _newsService.CreateNewsAsync(model, userId);
             return RedirectToAction("All");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> MyNews()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var news = await _newsService.GetNewsViewModelByUserIdAsync(userId);
+            return View(news);
+        }
     }
 }
