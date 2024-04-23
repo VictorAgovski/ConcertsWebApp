@@ -1,11 +1,8 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Exceptions;
-using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.News;
-using LiveMetal.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace LiveMetal.Controllers
@@ -51,6 +48,7 @@ namespace LiveMetal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(NewsCreateViewModel model)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

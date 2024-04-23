@@ -1,16 +1,15 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Models.Concert;
 using LiveMetal.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
-using static LiveMetal.Infrastructure.Constants.DataConstants;
 
 namespace LiveMetal.Controllers
 {
-    public class ConcertController : Controller
+    public class ConcertController : BaseController
     {
         private readonly IConcertService _concertService;
         private readonly IBandService _bandService;
@@ -26,6 +25,7 @@ namespace LiveMetal.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var allConcerts = await _concertService.GetAllConcerts();
@@ -127,6 +127,7 @@ namespace LiveMetal.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var concert = await _concertService.GetConcertByIdAsync(id);

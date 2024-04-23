@@ -1,9 +1,9 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Models.Band;
 using LiveMetal.Core.Models.Member;
-using LiveMetal.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LiveMetal.Controllers
 {
@@ -18,12 +18,16 @@ namespace LiveMetal.Controllers
             _memberService = memberService;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var allBands = await _bandService.GetAllBandsWithFeatures();
             return View(allBands);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> MemberDetails(int memberId)
         {
             var member = await _memberService.GetMemberDetailsById(memberId);
@@ -63,11 +67,6 @@ namespace LiveMetal.Controllers
         [ValidateAntiForgeryToken] 
         public async Task<IActionResult> AddMember(BandMemberCreateViewModel model)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return RedirectToAction("Error", "Home");
-            //}
-
             var band = await _bandService.GetBandById(model.BandId);
 
             if (band == null)
@@ -76,6 +75,22 @@ namespace LiveMetal.Controllers
             }
 
             await _memberService.CreateMemberAsync(model);
+
+            return RedirectToAction("All");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> DeleteMember(int id)
+        {
+            var member = await _memberService.GetMemberDetailsById(id);
+
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            await _memberService.DeleteMemberAsync(id);
 
             return RedirectToAction("All");
         }

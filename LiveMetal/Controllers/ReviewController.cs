@@ -3,15 +3,15 @@ using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.Review;
 using LiveMetal.Infrastructure.Data.Models;
 using LiveMetal.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Diagnostics;
 using System.Security.Claims;
 
 namespace LiveMetal.Controllers
 {
-    public class ReviewController : Controller
+    public class ReviewController : BaseController
     {
         private readonly IConcertService _concertService;
         private readonly IBandService _bandService;
@@ -26,6 +26,8 @@ namespace LiveMetal.Controllers
             _bandService = bandService;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var allReviews = await _reviewService.GetAllReviewsAsync();
@@ -165,6 +167,7 @@ namespace LiveMetal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, ConcertDeleteViewModel model)
         {
             var review = await _reviewService.GetReviewByIdAsync(id);

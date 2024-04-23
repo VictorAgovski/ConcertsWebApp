@@ -1,9 +1,10 @@
 ﻿using LiveMetal.Core.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiveMetal.Controllers
 {
-    public class VenueController : Controller
+    public class VenueController : BaseController
     {
         private readonly IVenueService _venueService;
 
@@ -12,6 +13,8 @@ namespace LiveMetal.Controllers
             _venueService = venueService;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var allVenues = await _venueService.GetAllVenuesWithFeatures();

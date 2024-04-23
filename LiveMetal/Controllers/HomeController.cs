@@ -1,8 +1,6 @@
 ﻿using LiveMetal.Core.Contracts;
-using LiveMetal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace LiveMetal.Controllers
 {

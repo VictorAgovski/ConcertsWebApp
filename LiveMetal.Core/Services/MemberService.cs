@@ -37,6 +37,12 @@ namespace LiveMetal.Core.Services
             await _repository.SaveChangesAsync();
         }
 
+        public async Task DeleteMemberAsync(int memberId)
+        {
+            await _repository.DeleteAsync<Member>(memberId);
+            await _repository.SaveChangesAsync();
+        }
+
         public async Task<BandMemberDetailedViewModel> GetMemberDetailsById(int memberId)
         {
             return await _repository
@@ -44,6 +50,7 @@ namespace LiveMetal.Core.Services
                 .Where(m => m.MemberId == memberId)
                 .Select(m => new BandMemberDetailedViewModel
                 {
+                    MemberId = m.MemberId,
                     FullName = m.FullName,
                     Role = m.Role,
                     Biography = m.Biography,
