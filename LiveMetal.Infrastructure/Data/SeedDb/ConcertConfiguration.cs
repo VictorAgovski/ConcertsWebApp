@@ -15,10 +15,22 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
         public void Configure(EntityTypeBuilder<Concert> builder)
         {
             builder
-                .HasOne(c => c.Creator) 
-                .WithMany(u => u.Concerts)  
-                .HasForeignKey(c => c.CreatorId) 
+                .HasOne(c => c.Creator)
+                .WithMany(u => u.Concerts)
+                .HasForeignKey(c => c.CreatorId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder
+                .HasOne(c => c.Band)
+                .WithMany(b => b.Concerts)
+                .HasForeignKey(c => c.BandId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasOne(c => c.Venue)
+                .WithMany(b => b.Concerts)
+                .HasForeignKey(c => c.VenueId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             var data = new SeedData();
 

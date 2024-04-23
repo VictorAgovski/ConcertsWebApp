@@ -41,6 +41,20 @@ namespace LiveMetal.Core.Services
             await _repository.SaveChangesAsync();
         }
 
+        public async Task DeleteConcertAsync(int id)
+        {
+            await _repository.DeleteAsync<Concert>(id);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task DeleteReviewsAsync(Concert concert)
+        {
+            foreach (var review in concert.Reviews)
+            {
+                concert.Reviews.Remove(review);
+            }
+        }
+
         public async Task EditConcertAsync(int id, ConcertCreateViewModel model)
         {
             var concert = await _repository.GetByIdAsync<Concert>(id);
@@ -96,6 +110,42 @@ namespace LiveMetal.Core.Services
 
         public async Task<Concert> GetConcertByIdAsync(int id)
             => await _repository.All<Concert>().Where(c => c.ConcertId == id).FirstOrDefaultAsync();
+
+        public async Task<ConcertDeleteViewModel?> GetConcertDeleteModelByIdAsync(int id)
+        {
+            return await _repository
+                .AllReadOnly<Concert>()
+                .Include(c => c.Reviews)
+                .Where(c => c.ConcertId == id)
+                .Select(c => new ConcertDeleteViewModel
+                {
+                    Name = c.Name,
+                    Date = c.Date,
+                    VenueName = c.Venue.Name,
+                    BandName = c.Band.Name,
+                    CreatorId = c.CreatorId
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<ConcertDetailsViewModel?> GetConcertDetailsModelByIdAsync(int id)
+        {
+            return await _repository
+                .AllReadOnly<Concert>()
+                .Where(c => c.ConcertId == id)
+                .Select(c => new ConcertDetailsViewModel
+                {
+                    ConcertId = c.ConcertId,
+                    BandName = c.Band.Name,
+                    Date = c.Date.ToString(DateFormat),
+                    Time = c.Time.ToString(TimeFormat),
+                    Description = c.Description,
+                    Name = c.Name,
+                    TicketPrice = c.TicketPrice,
+                    VenueName = c.Venue.Name
+                })
+                .FirstOrDefaultAsync();
+        }
 
         public async Task<ConcertCreateViewModel?> GetConcertFormModelByIdAsync(int id)
         {

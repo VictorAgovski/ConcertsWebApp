@@ -21,5 +21,13 @@ namespace LiveMetal.Core.Contracts
         Task<ConcertCreateViewModel?> GetConcertFormModelByIdAsync(int id);
 
         Task EditConcertAsync(int id, ConcertCreateViewModel model);
+
+        Task<ConcertDetailsViewModel?> GetConcertDetailsModelByIdAsync(int id);
+
+        Task<ConcertDeleteViewModel?> GetConcertDeleteModelByIdAsync(int id);
+
+        Task DeleteReviewsAsync(Concert concert);
+
+        Task DeleteConcertAsync(int id);
     }
 }

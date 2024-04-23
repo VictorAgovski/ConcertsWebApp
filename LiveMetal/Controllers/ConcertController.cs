@@ -121,5 +121,70 @@ namespace LiveMetal.Controllers
             return RedirectToAction("All");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var concert = await _concertService.GetConcertByIdAsync(id);
+
+            if (concert == null)
+            {
+                return NotFound();
+            }
+
+            var model = await _concertService.GetConcertDetailsModelByIdAsync(id);
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var concert = await _concertService.GetConcertDeleteModelByIdAsync(id);
+            if (concert == null)
+            {
+                return NotFound();
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            if (concert.CreatorId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return View(concert);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id, ConcertDeleteViewModel model)
+        {
+            var concert = await _concertService.GetConcertByIdAsync(id);
+
+            if (concert == null)
+            {
+                return NotFound();
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            if (concert.CreatorId != userId)
+            {
+                return Unauthorized();
+            }
+
+            await _concertService.DeleteReviewsAsync(concert);
+            await _concertService.DeleteConcertAsync(id);
+
+            return RedirectToAction("All");
+        }
     }
 }

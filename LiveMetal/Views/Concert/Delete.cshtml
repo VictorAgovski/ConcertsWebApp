@@ -1,0 +1,20 @@
+﻿@model LiveMetal.Core.Models.Concert.ConcertDeleteViewModel
+
+@{
+    ViewData["Title"] = "Delete Concert";
+}
+
+<h1>Delete Concert</h1>
+<h3>Are you sure you want to delete this concert?</h3>
+
+<div class="alert alert-danger" role="alert">
+    <strong>@Model.Name</strong> at <strong>@Model.VenueName</strong> on <strong>@Model.Date.ToString("dddd, MMMM dd, yyyy")</strong>
+    by <strong>@Model.BandName</strong>.
+</div>
+
+<!-- Form for deletion confirmation -->
+<form asp-action="DeleteConfirmed" asp-controller="Concert" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="All" asp-controller="Concert" class="btn btn-secondary">Cancel</a>
+</form>
