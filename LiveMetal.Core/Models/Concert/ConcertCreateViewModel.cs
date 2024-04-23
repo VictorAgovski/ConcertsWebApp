@@ -11,6 +11,8 @@ namespace LiveMetal.Core.Models.Concert
 {
     public class ConcertCreateViewModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(ConcertNameMaxLength, MinimumLength = ConcertNameMinLength, ErrorMessage = LengthMessage)]
         public string Name { get; set; } = string.Empty;

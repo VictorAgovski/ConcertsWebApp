@@ -3,6 +3,7 @@ using LiveMetal.Core.Models.Concert;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+using static LiveMetal.Infrastructure.Constants.DataConstants;
 
 namespace LiveMetal.Controllers
 {
@@ -68,5 +69,57 @@ namespace LiveMetal.Controllers
             await _concertService.CreateConcertAsync(model, userId);
             return RedirectToAction("All");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var concert = await _concertService.GetConcertByIdAsync(id);
+
+            if (concert == null)
+            {
+                return NotFound();
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId != concert.CreatorId)
+            {
+                return Unauthorized();
+            }
+
+            var model = await _concertService.GetConcertFormModelByIdAsync(id);
+
+            ViewBag.Bands = new SelectList(await _bandService.GetAllBands(), "Id", "Name", concert.BandId);
+            ViewBag.Venues = new SelectList(await _venueService.GetAllVenues(), "Id", "Name", concert.VenueId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ConcertCreateViewModel model)
+        {
+            var concert = await _concertService.GetConcertByIdAsync(id);
+
+            if (concert == null)
+            {
+                return NotFound();
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId != concert.CreatorId)
+            {
+                return Unauthorized();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await _concertService.EditConcertAsync(id, model);
+            return RedirectToAction("All");
+        }
+
     }
 }

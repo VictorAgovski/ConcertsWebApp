@@ -1,0 +1,74 @@
+﻿@using static LiveMetal.Infrastructure.Constants.DataConstants
+@using LiveMetal.Core.Models.Concert
+@model ConcertCreateViewModel
+
+@{
+    ViewData["Title"] = "Edit Concert";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name">Concert Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Date">Date</label>
+                    <input asp-for="Date" type="date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Time">Time</label>
+                    <input asp-for="Time" type="time" class="form-control" />
+                    <span asp-validation-for="Time" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TicketPrice">Ticket Price</label>
+                    <input asp-for="TicketPrice" class="form-control" />
+                    <span asp-validation-for="TicketPrice" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BandId">Band</label>
+                    <select asp-for="BandId" asp-items="ViewBag.Bands" class="form-control"></select>
+                    <span asp-validation-for="BandId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="VenueId">Venue</label>
+                    <select asp-for="VenueId" asp-items="ViewBag.Venues" class="form-control"></select>
+                    <span asp-validation-for="VenueId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/createConcert.css" asp-append-version="true" />
+}

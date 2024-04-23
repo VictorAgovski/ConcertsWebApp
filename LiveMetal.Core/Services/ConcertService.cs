@@ -41,6 +41,24 @@ namespace LiveMetal.Core.Services
             await _repository.SaveChangesAsync();
         }
 
+        public async Task EditConcertAsync(int id, ConcertCreateViewModel model)
+        {
+            var concert = await _repository.GetByIdAsync<Concert>(id);
+
+            if (concert != null)
+            {
+                concert.BandId = (int)model.BandId;
+                concert.Date = DateTime.Parse(model.Date);
+                concert.Time = DateTime.Parse(model.Time);
+                concert.Description = model.Description;
+                concert.Name = model.Name;
+                concert.TicketPrice = model.TicketPrice;
+                concert.VenueId = (int)model.VenueId;
+
+                await _repository.SaveChangesAsync();
+            }
+        }
+
         public async Task<IEnumerable<ConcertViewModel>> GetAllConcerts()
         {
             return await _repository
@@ -74,6 +92,27 @@ namespace LiveMetal.Core.Services
                         .ToList()
                 })
                 .ToListAsync();
+        }
+
+        public async Task<Concert> GetConcertByIdAsync(int id)
+            => await _repository.All<Concert>().Where(c => c.ConcertId == id).FirstOrDefaultAsync();
+
+        public async Task<ConcertCreateViewModel?> GetConcertFormModelByIdAsync(int id)
+        {
+            return await _repository
+                .AllReadOnly<Concert>()
+                .Where(c => c.ConcertId == id)
+                .Select(c => new ConcertCreateViewModel
+                {
+                    BandId = c.BandId,
+                    VenueId = c.VenueId,
+                    Date = c.Date.ToString("yyyy-MM-dd"),
+                    Time = c.Time.ToString(TimeFormat),
+                    Description = c.Description,
+                    Name = c.Name,
+                    TicketPrice = c.TicketPrice
+                })
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<ConcertViewModel>> RatedConcertsByUserId(string userId)
