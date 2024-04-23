@@ -42,18 +42,20 @@ namespace LiveMetal.Core.Services
             await _repository.SaveChangesAsync();
         }
 
-        public async Task DeleteConcertAsync(int id)
+        public async Task DeleteReviewsAndConcertAsync(Concert concert)
         {
-            await _repository.DeleteAsync<Concert>(id);
-            await _repository.SaveChangesAsync();
-        }
+            var concertToDelete = await _repository.All<Concert>()
+                .Include(g => g.Reviews)
+                .Where(g => g.ConcertId == concert.ConcertId)
+                .FirstOrDefaultAsync();
 
-        public async Task DeleteReviewsAsync(Concert concert)
-        {
-            foreach (var review in concert.Reviews)
+            foreach (var review in concertToDelete.Reviews)
             {
-                concert.Reviews.Remove(review);
+                await _repository.DeleteAsync<Review>(review.ReviewId);
             }
+
+            await _repository.DeleteAsync<Concert>(concertToDelete.ConcertId);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task EditConcertAsync(int id, ConcertCreateViewModel model)
@@ -101,7 +103,6 @@ namespace LiveMetal.Core.Services
                             UserName = r.User.UserName,
                             IssuedOn = r.IssuedOn.ToString(DateFormat),
                             Title = r.Title,
-                            BandName = r.Band.Name,
                             ConcertName = r.Concert.Name
                         })
                         .ToList()
@@ -206,7 +207,6 @@ namespace LiveMetal.Core.Services
                             UserName = r.User.UserName,
                             IssuedOn = r.IssuedOn.ToString(DateFormat),
                             Title = r.Title,
-                            BandName = r.Band.Name,
                             ConcertName = r.Concert.Name
                         })
                         .ToList()

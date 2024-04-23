@@ -1,11 +1,6 @@
-﻿using LiveMetal.Core.Models.Band;
+﻿using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.Review;
 using LiveMetal.Infrastructure.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiveMetal.Core.Contracts
 {
@@ -13,12 +8,12 @@ namespace LiveMetal.Core.Contracts
     {
         Task<IEnumerable<ReviewViewModel>> GetAllReviewsAsync();
 
-        Task<IEnumerable<Review>> GetReviewsByUserIdAsync(string id);
-
-        Task<IEnumerable<ReviewViewModel>> GetTopThreeReviewsAsync();
+        Task<Review> GetReviewByIdAsync(int id);
 
         Task AddReviewAsync(ReviewCreateViewModel model, string userId);
 
         Task<IEnumerable<RatingViewModel>> GetRatingsAsync();
+
+        Task<Review> EditReviewAsync(Review model);
     }
 }

@@ -18,8 +18,6 @@ namespace LiveMetal.Core.Models.Review
 
         public string IssuedOn { get; set; } = string.Empty;
 
-        public string? BandName { get; set; }
-
         public string UserName { get; set; } = string.Empty;
 
         public string? ConcertName { get; set; }

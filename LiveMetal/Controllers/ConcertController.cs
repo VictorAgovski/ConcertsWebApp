@@ -1,7 +1,10 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Models.Concert;
+using LiveMetal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Security.Claims;
 using static LiveMetal.Infrastructure.Constants.DataConstants;
 
@@ -52,6 +55,7 @@ namespace LiveMetal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ConcertCreateViewModel model)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -96,6 +100,7 @@ namespace LiveMetal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ConcertCreateViewModel model)
         {
             var concert = await _concertService.GetConcertByIdAsync(id);
@@ -181,10 +186,15 @@ namespace LiveMetal.Controllers
                 return Unauthorized();
             }
 
-            await _concertService.DeleteReviewsAsync(concert);
-            await _concertService.DeleteConcertAsync(id);
-
-            return RedirectToAction("All");
+            try
+            {
+                await _concertService.DeleteReviewsAndConcertAsync(concert);
+                return RedirectToAction("All");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
     }
 }
