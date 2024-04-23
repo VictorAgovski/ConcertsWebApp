@@ -22,6 +22,20 @@ namespace LiveMetal.Core.Services
             _repository = repository;
         }
 
+        public async Task AddVenueAsync(VenueCreateViewModel model)
+        {
+            var venue = new Venue
+            {
+                Name = model.Name,
+                Location = model.Location,
+                Capacity = model.Capacity,
+                ContactInfo = model.ContactInfo
+            };
+
+            await _repository.AddAsync<Venue>(venue);
+            await _repository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<VenueViewModel>> GetAllVenues()
         {
             return await _repository

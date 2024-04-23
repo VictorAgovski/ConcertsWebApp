@@ -12,5 +12,7 @@ namespace LiveMetal.Core.Contracts
         Task<IEnumerable<VenueViewModel>> GetAllVenues();
 
         Task<IEnumerable<VenueAllFeaturesViewModel>> GetAllVenuesWithFeatures();
+
+        Task AddVenueAsync(VenueCreateViewModel model);
     }
 }
