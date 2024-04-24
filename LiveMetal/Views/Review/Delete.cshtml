@@ -1,0 +1,24 @@
+﻿@using static LiveMetal.Infrastructure.Constants.DataConstants
+@model LiveMetal.Core.Models.Review.ReviewDeleteViewModel
+
+@{
+    ViewData["Title"] = "Delete Review";
+}
+
+<h1>Delete Review</h1>
+
+<h3>Are you sure you want to delete this review?</h3>
+
+<div class="alert alert-danger">
+    <h4>@Model.Title</h4>
+    <p>@Model.Content</p>
+    <p><strong>Rating:</strong> @Model.Rating</p>
+    <p><strong>Date:</strong> @Model.IssuedOn.ToString(DateFormat)</p>
+    <p><strong>Concert:</strong> @Model.ConcertName</p>
+</div>
+
+<!-- Form to submit deletion -->
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.ReviewId" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="All" class="btn btn-secondary">Cancel</a>
+</form>

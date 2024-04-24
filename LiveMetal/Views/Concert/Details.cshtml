@@ -1,0 +1,40 @@
+﻿@using LiveMetal.Core.Models.Concert
+@model ConcertDetailsViewModel
+
+@{
+    ViewData["Title"] = "Concert Details";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h1 class="card-title">@Model.Name</h1>
+        </div>
+        <div class="card-body">
+            <h3 class="text-secondary">Concert Details</h3>
+            <dl class="row">
+                <dt class="col-sm-3">Date and Time</dt>
+                <dd class="col-sm-9">@Model.Date @Model.Time</dd>
+
+                <dt class="col-sm-3">Ticket Price</dt>
+                <dd class="col-sm-9">$@Model.TicketPrice.ToString("N2")</dd>
+
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">@Model.Description</dd>
+
+                <dt class="col-sm-3">Band</dt>
+                <dd class="col-sm-9">@Model.BandName</dd>
+
+                <dt class="col-sm-3">Venue</dt>
+                <dd class="col-sm-9">@Model.VenueName</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a href="@Url.Action("All", "Concert")" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/detailedConcert.css" />
+}

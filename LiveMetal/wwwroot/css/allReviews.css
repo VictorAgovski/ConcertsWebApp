@@ -1,0 +1,12 @@
+﻿.card-header {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.card-body {
+    background-color: #ffffff;
+}
+
+.badge {
+    font-size: 1em;
+}

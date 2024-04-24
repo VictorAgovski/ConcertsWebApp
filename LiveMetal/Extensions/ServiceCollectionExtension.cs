@@ -2,21 +2,25 @@
 using Microsoft.EntityFrameworkCore;
 using LiveMetal.Infrastructure.Data;
 using LiveMetal.Infrastructure.Data.Models;
+using LiveMetal.Infrastructure.Data.Common;
+using LiveMetal.Core.Contracts;
+using LiveMetal.Core.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
     {
-        //public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-        //{
-        //    services.AddScoped<IHouseService, HouseService>();
-        //    services.AddScoped<IAgentService, AgentService>();
-        //    services.AddScoped<IStatisticService, StatisticService>();
-        //    services.AddScoped<IUserService, UserService>();
-        //    services.AddScoped<IRentService, RentService>();
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IConcertService, ConcertService>();
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IBandService, BandService>();
+            services.AddScoped<IVenueService, VenueService>();
+            services.AddScoped<IMemberService, MemberService>();
 
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)
         {
@@ -24,7 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<LiveMetalDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            //services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

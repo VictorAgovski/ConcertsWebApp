@@ -1,0 +1,103 @@
+﻿@using LiveMetal.Core.Models.Band
+@model IEnumerable<BandAllFeaturesViewModel>
+
+@{
+    ViewData["Title"] = "All Bands";
+}
+
+<h1 class="text-center my-4">All Bands</h1>
+
+<div class="container">
+    @foreach (var band in Model)
+    {
+        <div class="card mb-3 shadow-sm">
+            <img src="@band.BandImageUrl" class="card-img-top" alt="Image of @band.Name">
+            <div class="card-body">
+                <h5 class="card-title">@band.Name</h5>
+                <p class="card-text">@band.Biography</p>
+                <p><strong>Genre:</strong> @band.Genre</p>
+                <p><strong>Formation Year:</strong> @band.FormationYear.ToString("yyyy")</p>
+                <h6>Members:</h6>
+                <ul>
+                    @foreach (var member in band.Members)
+                    {
+                        <li>
+                            @member.Name (@member.Role) -
+                            <a href="@Url.Action("MemberDetails", "Band", new { memberId = member.Id })">View Details</a>
+                        </li>
+                    }
+                </ul>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal-@band.BandId">Add Member</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteBandModal-@band.BandId">Delete Band</button>
+            </div>
+        </div>
+
+        <!-- Modal for Adding Member -->
+        <div class="modal fade" id="addMemberModal-@band.BandId" tabindex="-1" aria-labelledby="addMemberModalLabel-@band.BandId" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addMemberModalLabel-@band.BandId">Add New Member to @band.Name</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-action="AddMember" asp-controller="Band" method="post">
+                            <input type="hidden" name="BandId" value="@band.BandId" />
+                            <div class="mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" name="FullName" class="form-control" required minlength="10" maxlength="100" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <input type="text" name="Role" class="form-control" required minlength="3" maxlength="20" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Biography</label>
+                                <textarea name="Biography" class="form-control" required minlength="10" maxlength="400"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" name="DateOfBirth" class="form-control" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date of Joining</label>
+                                <input type="date" name="DateOfJoining" class="form-control" required />
+                            </div>
+                            <button type="submit" class="btn btn-success">Add Member</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Confirming Deletion -->
+        <div class="modal fade" id="deleteBandModal-@band.BandId" tabindex="-1" aria-labelledby="deleteBandModalLabel-@band.BandId" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteBandModalLabel-@band.BandId">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete @band.Name?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form asp-action="DeleteBand" asp-controller="Band" method="post">
+                            <input type="hidden" name="BandId" value="@band.BandId" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/bands.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" asp-append-version="true" />
+}

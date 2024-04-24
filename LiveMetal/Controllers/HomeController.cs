@@ -1,32 +1,111 @@
-﻿using LiveMetal.Models;
+﻿using LiveMetal.Core.Contracts;
+using LiveMetal.Core.Models.Home;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
 
 namespace LiveMetal.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INewsService _newsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INewsService newsService)
         {
             _logger = logger;
+            _newsService = newsService;
         }
 
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var topThreeNews = await _newsService.GetTopThreeNewsAsync();
+            return View(topThreeNews);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode == 400)
+            {
+                return View("Error400");
+            }
+
+            if (statusCode == 401)
+            {
+                return View("Error401");
+            }
+
+            if (statusCode == 404)
+            {
+                return View("Error404");
+            }
+
+            if (statusCode == 500)
+            {
+                return View("Error500");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Contact(ContactViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await SendEmailAsync(model);
+                ViewBag.Message = "Your message has been sent successfully!";
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "There was an error sending your message. Please try again later.";
+            }
+
+            return View();
+        }
+
+        private async Task SendEmailAsync(ContactViewModel model)
+        {
+            var fromAddress = new MailAddress("your-email@example.com", "Your Name or Company");
+            var toAddress = new MailAddress("receiver@example.com", "Receiver's Name");
+            const string fromPassword = "your-email-password";
+            const string subject = "New Contact Us Message";
+            string body = $"Name: {model.Name}\nEmail: {model.Email}\nMessage: {model.Message}";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                await smtp.SendMailAsync(message);
+            }
         }
     }
 }

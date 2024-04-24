@@ -1,0 +1,72 @@
+﻿@using LiveMetal.Core.Models.Review
+@using System.Linq
+@model IEnumerable<ReviewViewModel>
+
+@{
+    ViewData["Title"] = "All Reviews";
+
+    int pageSize = 5; 
+    int currentPage = 1;
+    if (Context.Request.Query.ContainsKey("page"))
+    {
+        int.TryParse(Context.Request.Query["page"], out currentPage);
+    }
+    int totalRecords = Model.Count();
+    int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+    var pagedModel = Model.Skip((currentPage - 1) * pageSize).Take(pageSize);
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    @if (pagedModel.Any())
+    {
+        foreach (var review in pagedModel)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <strong>@review.Title</strong> by @review.UserName on @review.IssuedOn
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@review.Content</p>
+                    <p><span class="badge bg-primary">@review.Rating stars</span></p>
+                    <p class="card-text"><strong>Concert:</strong> @review.ConcertName</p>
+                </div>
+                <div class="card-footer">
+                    @if (User.Identity.IsAuthenticated && (User.IsAdmin() || User.Id() == review.UserId))
+                    {
+                        <a href="@Url.Action("Edit", "Review", new { id = review.ReviewId })" class="btn btn-info">Edit</a>
+                        <a href="@Url.Action("Delete", "Review", new { id = review.ReviewId })" class="btn btn-danger">Delete</a>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No reviews available.</p>
+    }
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("All", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

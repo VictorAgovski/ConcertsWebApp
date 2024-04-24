@@ -1,0 +1,10 @@
+﻿.card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.alert-secondary {
+    background-color: #e2e3e5;
+    color: #383d41;
+}

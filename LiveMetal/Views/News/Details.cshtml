@@ -1,0 +1,17 @@
+﻿@using LiveMetal.Core.Models.News
+@model NewsViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="news-details">
+    <h1>@Model.Title</h1>
+    <img src="@Model.ImageUrl" alt="Image for @Model.Title" class="news-details-image">
+    <p>@Model.Content</p>
+    <small>Posted on @Model.FormattedDate</small>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/news-details.css" asp-append-version="true" />
+}
