@@ -60,12 +60,6 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
 
         public Venue ThirdVenue { get; set; }
 
-        public UserFavourite FirstFavourite { get; set; }
-
-        public UserFavourite SecondFavourite { get; set; }
-
-        public UserFavourite ThirdFavourite { get; set; }
-
         public News FirstNews { get; set; }
 
         public News SecondNews { get; set; }
@@ -80,7 +74,6 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
             SeedVenues();
             SeedConcerts();
             SeedReviews();
-            SeedUserFavourites();
             SeedNews();
         }
 
@@ -372,27 +365,6 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 Rating = 5,
                 Content = "Nile were amazing! I had a great time at the concert!",
                 IssuedOn = new DateTime(2024, 8, 31)
-            };
-        }
-
-        private void SeedUserFavourites()
-        {
-            FirstFavourite = new UserFavourite
-            {
-                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
-                BandId = 1
-            };
-
-            SecondFavourite = new UserFavourite
-            {
-                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
-                BandId = 2
-            };
-
-            ThirdFavourite = new UserFavourite
-            {
-                UserId = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
-                BandId = 3
             };
         }
 

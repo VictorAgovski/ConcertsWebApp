@@ -26,12 +26,6 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 .HasForeignKey(b => b.BandId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .HasMany(b => b.UserFavourites)
-                .WithOne(uf => uf.Band)
-                .HasForeignKey(b => b.BandId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             var data = new SeedData();
 
             builder.HasData(new Band[] { data.HeavyMetalBand, data.ThrashMetalBand, data.DeathMetalBand, data.BlackMetalBand });

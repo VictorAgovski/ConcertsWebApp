@@ -20,7 +20,6 @@ namespace LiveMetal.Infrastructure.Data
             builder.ApplyConfiguration(new ConcertConfiguration());
             builder.ApplyConfiguration(new MemberConfiguration());
             builder.ApplyConfiguration(new ReviewConfiguration());
-            builder.ApplyConfiguration(new UserFavouriteConfiguration());
             builder.ApplyConfiguration(new VenueConfiguration());
             builder.ApplyConfiguration(new NewsConfiguration());
 
@@ -34,8 +33,6 @@ namespace LiveMetal.Infrastructure.Data
         public DbSet<Member> Members { get; set; } = null!;
 
         public DbSet<Review> Reviews { get; set; } = null!;
-
-        public DbSet<UserFavourite> UsersFavourites { get; set; } = null!;
 
         public DbSet<Venue> Venues { get; set; } = null!;
 
