@@ -100,7 +100,7 @@ namespace LiveMetal.Core.Services
                         {
                             Content = r.Content,
                             Rating = r.Rating,
-                            UserName = r.User.UserName,
+                            UserName = $"{r.User.FirstName} {r.User.LastName}",
                             IssuedOn = r.IssuedOn.ToString(DateFormat),
                             Title = r.Title,
                             ConcertName = r.Concert.Name

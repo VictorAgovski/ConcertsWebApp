@@ -9,8 +9,7 @@
 
     if (SignInManager.IsSignedIn(User))
     {
-        var user = await UserManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-        userName = $"{user.FirstName} {user.LastName}";
+        userName = User.FindFirstValue(LiveMetal.Infrastructure.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
     }
 }
 
