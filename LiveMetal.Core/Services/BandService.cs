@@ -1,15 +1,9 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Models.Band;
-using LiveMetal.Core.Models.Concert;
 using LiveMetal.Core.Models.Member;
 using LiveMetal.Infrastructure.Data.Common;
 using LiveMetal.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiveMetal.Core.Services
 {
