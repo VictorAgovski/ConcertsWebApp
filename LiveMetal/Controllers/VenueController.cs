@@ -25,6 +25,11 @@ namespace LiveMetal.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            if (!User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
             return View(new VenueCreateViewModel());
         }
 
@@ -35,6 +40,11 @@ namespace LiveMetal.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            if (!User.IsAdmin())
+            {
+                return Unauthorized();
             }
 
             try

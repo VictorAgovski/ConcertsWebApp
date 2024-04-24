@@ -1,5 +1,6 @@
 using LiveMetal.ModelBinders;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,9 +43,15 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}",
-        defaults: new { Controller = "Home", Action = "Index" });
+        name: "All News",
+        pattern: "/Home/Index/",
+        defaults: new { Controller = "Home", Action = "Index" }
+    );
+
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 
     endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();

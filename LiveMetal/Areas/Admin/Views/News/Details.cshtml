@@ -1,0 +1,22 @@
+﻿@using LiveMetal.Core.Models.News
+@model NewsViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-5">
+    <div class="news-details card mb-4 shadow-sm">
+        <img src="@Model.ImageUrl" alt="Image for @Model.Title" class="card-img-top">
+        <div class="card-body">
+            <h1 class="card-title">@Model.Title</h1>
+            <p class="card-text">@Model.Content</p>
+            <p class="card-text"><small class="text-muted">Posted on @Model.FormattedDate</small></p>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/news-details.css" asp-append-version="true" />
+}

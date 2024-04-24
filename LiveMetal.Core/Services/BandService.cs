@@ -16,10 +16,14 @@ namespace LiveMetal.Core.Services
     public class BandService : IBandService
     {
         private readonly IRepository _repository;
+        private readonly IReviewService _reviewService;
+        private readonly IConcertService _concertService;
 
-        public BandService(IRepository repository)
+        public BandService(IRepository repository, IReviewService reviewService, IConcertService concertService)
         {
             _repository = repository;
+            _reviewService = reviewService;
+            _concertService = concertService;
         }
 
         public async Task<IEnumerable<BandViewModel>> GetAllBands()
@@ -96,5 +100,26 @@ namespace LiveMetal.Core.Services
 
         public async Task<Band> GetBandById(int bandId) 
             => await _repository.GetByIdAsync<Band>(bandId);
+
+        public async Task DeleteBandAsync(Band band)
+        {
+            var bandToDelete = await _repository.All<Band>()
+               .Include(b => b.Concerts)
+               .Where(b => b.BandId == band.BandId)
+               .FirstOrDefaultAsync();
+
+            foreach (var concert in bandToDelete.Concerts)
+            {
+                foreach (var review in concert.Reviews)
+                {
+                    await _reviewService.DeleteReviewAsync(review);
+                }
+
+                await _concertService.DeleteReviewsAndConcertAsync(concert);
+            }
+
+            await _repository.DeleteAsync<Band>(bandToDelete.BandId);
+            await _repository.SaveChangesAsync();
+        }
     }
 }

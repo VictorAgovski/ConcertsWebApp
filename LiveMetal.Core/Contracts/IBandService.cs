@@ -20,5 +20,7 @@ namespace LiveMetal.Core.Contracts
         Task CreateBandAsync(BandCreateViewModel model);
 
         Task<Band> GetBandById(int bandId);
+
+        Task DeleteBandAsync(Band band);
     }
 }

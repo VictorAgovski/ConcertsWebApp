@@ -39,33 +39,15 @@ namespace LiveMetal.Controllers
             return View(member);
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            var model = new BandCreateViewModel
-            {
-                Members = new List<BandMemberCreateViewModel> { new BandMemberCreateViewModel() }
-            };
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BandCreateViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            await _bandService.CreateBandAsync(model);
-            return RedirectToAction("All");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken] 
         public async Task<IActionResult> AddMember(BandMemberCreateViewModel model)
         {
+            if (!User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
             var band = await _bandService.GetBandById(model.BandId);
 
             if (band == null)
@@ -74,22 +56,6 @@ namespace LiveMetal.Controllers
             }
 
             await _memberService.CreateMemberAsync(model);
-
-            return RedirectToAction("All");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken] 
-        public async Task<IActionResult> DeleteMember(int id)
-        {
-            var member = await _memberService.GetMemberDetailsById(id);
-
-            if (member == null)
-            {
-                return NotFound();
-            }
-
-            await _memberService.DeleteMemberAsync(id);
 
             return RedirectToAction("All");
         }

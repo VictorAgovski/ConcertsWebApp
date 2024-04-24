@@ -4,6 +4,7 @@ using LiveMetal.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiveMetal.Infrastructure.Migrations
 {
     [DbContext(typeof(LiveMetalDbContext))]
-    partial class LiveMetalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424144959_UpdatedRestrictions")]
+    partial class UpdatedRestrictions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,7 +107,7 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cef60f38-e20a-46d5-807e-23d29e805fc3",
+                            ConcurrencyStamp = "6ca02806-ab57-4b4c-bde8-139d665a34b8",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Guest",
@@ -113,10 +115,10 @@ namespace LiveMetal.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE/zoogZL2AYVCE0xkWbAbRax2ePgk40ycpgesicsj+4lcsuLREdH5lQ1GQF/o8Fig==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBADCe1ZFie/Q9SCxHSbVj/05OqAiwENCLWnowiWZDNWZ2iIaI2TTBe8V0kS1CDDng==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://ohsobserver.com/wp-content/uploads/2022/12/Guest-user.png",
-                            SecurityStamp = "3c2764a1-f012-414e-b081-ea851d2337d4",
+                            SecurityStamp = "f5f069ed-ce19-4e97-a71c-fff6b3fb7ef0",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -124,7 +126,7 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             Id = "a1b1c1d1-e1f1-1g1h-1i1j-1k1l1m1n1o1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "14edcfea-f670-44b8-ad85-e04a1457eb79",
+                            ConcurrencyStamp = "69002780-0c6d-47b0-a4ec-2fb981206771",
                             Email = "registered@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Registered",
@@ -132,10 +134,10 @@ namespace LiveMetal.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "registered@mail.com",
                             NormalizedUserName = "registered@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBxvfGlTPPhjZ7I3FLCkS/VPXx7VX9Ys7sHyGC7pwIgGZvpq/MU9fel/NA3KfqMRLA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMK0ugszICSqXg656cn/1QomtVYt8HZc33gu6Ak6wGCHAfgWeMv08Cecwq9Y7mu6pQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.pngkey.com/png/detail/73-730394_admin-approved-user-registration-user-registration-icon-png.png",
-                            SecurityStamp = "89c65581-8a07-401d-99b5-e2f7d156952a",
+                            SecurityStamp = "30bff93d-d022-4c32-84f9-14e8fbf9a138",
                             TwoFactorEnabled = false,
                             UserName = "registered@mail.com"
                         },
@@ -143,7 +145,7 @@ namespace LiveMetal.Infrastructure.Migrations
                         {
                             Id = "f3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "39b8d1e3-481c-4d2c-bfdd-514122bc1bbc",
+                            ConcurrencyStamp = "3e804688-d2f4-4d7b-8331-46b2fd3ad5f1",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -151,10 +153,10 @@ namespace LiveMetal.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@mail.com",
                             NormalizedUserName = "admin@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJOAlNsdNk4AjmPK0CGE/05r2MqBX7PFZeHvO4eOU4Uw8MJEMx4YdTYOxQ0CWorfKA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAL28SevMj7duRoaA4ZHY55Ci/Z4E9e0/DbuTZvA8JcBdhF1eCxPXDp5v5X6pTQZkQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.wpeka.com/rgh/wp-content/uploads/2014/03/Changing-the-default-admin-user-in-WordPress1-e1462965535256.jpg",
-                            SecurityStamp = "c458b960-6ab8-4b97-be2e-c1cd23332be5",
+                            SecurityStamp = "bb2ed9c4-4c68-4478-966f-77e7b6754fbd",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com"
                         });

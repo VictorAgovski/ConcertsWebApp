@@ -32,6 +32,12 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 .HasForeignKey(c => c.VenueId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder
+                .HasMany(c => c.Reviews)
+                .WithOne(r => r.Concert)
+                .HasForeignKey(r => r.ConcertId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             var data = new SeedData();
 
             builder.HasData(new Concert[] { data.FirstConcert, data.SecondConcert, data.ThirdConcert });

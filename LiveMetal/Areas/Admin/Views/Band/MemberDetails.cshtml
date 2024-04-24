@@ -13,5 +13,8 @@
         <p><strong>Date of Birth:</strong> @Model.DateOfBirth</p>
         <p><strong>Date of Joining:</strong> @Model.DateOfJoining</p>
         <p><strong>Band:</strong> @Model.BandName</p>
+        <form asp-action="DeleteMember" asp-controller="Band" asp-route-id="@Model.MemberId" method="post">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this member?');">Delete</button>
+        </form>
     </div>
 </div>
