@@ -23,7 +23,7 @@
             <div class="card-footer">
                 <a class="btn btn-secondary" asp-controller="Concert" asp-action="Details" asp-route-id="@concert.ConcertId">Details</a>
 
-                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || @concert.CreatorId == User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                @if (User.Identity.IsAuthenticated && (User.IsAdmin() || @concert.CreatorId == User.Id()))
                 {
                     <a class="btn btn-info" asp-controller="Concert" asp-action="Edit" asp-route-id="@concert.ConcertId">Edit</a>
                     <a class="btn btn-danger" asp-controller="Concert" asp-action="Delete" asp-route-id="@concert.ConcertId">Delete</a>

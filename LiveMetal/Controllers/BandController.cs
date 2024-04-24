@@ -3,7 +3,6 @@ using LiveMetal.Core.Models.Band;
 using LiveMetal.Core.Models.Member;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LiveMetal.Controllers
 {

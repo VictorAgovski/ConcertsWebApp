@@ -21,7 +21,7 @@
                 <p class="card-text"><strong>Concert:</strong> @review.ConcertName</p>
             </div>
             <div class="card-footer">
-                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.FindFirst(ClaimTypes.NameIdentifier)?.Value == review.UserId))
+                @if (User.Identity.IsAuthenticated && (User.IsAdmin() || User.Id() == review.UserId))
                 {
                     <a href="@Url.Action("Edit", "Review", new { id = review.ReviewId })" class="btn btn-info">Edit</a>
                     <a href="@Url.Action("Delete", "Review", new { id = review.ReviewId })" class="btn btn-danger">Delete</a>

@@ -57,7 +57,7 @@ namespace LiveMetal.Controllers
                 return View(model);
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {
@@ -78,9 +78,9 @@ namespace LiveMetal.Controllers
                 return NotFound();
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
-            if (userId != review.UserId)
+            if (userId != review.UserId && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -112,7 +112,7 @@ namespace LiveMetal.Controllers
                 return View(model);
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {
@@ -151,14 +151,14 @@ namespace LiveMetal.Controllers
                 return NotFound();
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {
                 return BadRequest();
             }
 
-            if (review.UserId != userId)
+            if (review.UserId != userId && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -184,7 +184,7 @@ namespace LiveMetal.Controllers
                 return BadRequest();
             }
 
-            if (review.UserId != userId)
+            if (review.UserId != userId && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }

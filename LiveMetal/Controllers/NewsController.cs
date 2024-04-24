@@ -51,7 +51,7 @@ namespace LiveMetal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(NewsCreateViewModel model)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {
@@ -70,7 +70,7 @@ namespace LiveMetal.Controllers
         [HttpGet]
         public async Task<IActionResult> MyNews()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {

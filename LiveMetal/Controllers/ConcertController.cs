@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
-using System.Security.Claims;
 
 namespace LiveMetal.Controllers
 {
@@ -37,7 +36,7 @@ namespace LiveMetal.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string userId = User.Id();
                 var ratedConcerts = await _concertService.RatedConcertsByUserId(userId);
                 return View(ratedConcerts);
             }
@@ -58,7 +57,7 @@ namespace LiveMetal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ConcertCreateViewModel model)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {
@@ -84,9 +83,9 @@ namespace LiveMetal.Controllers
                 return NotFound();
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
-            if (userId != concert.CreatorId)
+            if (userId != concert.CreatorId && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -110,9 +109,9 @@ namespace LiveMetal.Controllers
                 return NotFound();
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
-            if (userId != concert.CreatorId)
+            if (userId != concert.CreatorId && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -150,14 +149,14 @@ namespace LiveMetal.Controllers
                 return NotFound();
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {
                 return BadRequest();
             }
 
-            if (concert.CreatorId != userId)
+            if (concert.CreatorId != userId && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -175,14 +174,14 @@ namespace LiveMetal.Controllers
                 return NotFound();
             }
 
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.Id();
 
             if (userId == null)
             {
                 return BadRequest();
             }
 
-            if (concert.CreatorId != userId)
+            if (concert.CreatorId != userId && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
