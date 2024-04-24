@@ -1,44 +1,87 @@
 ﻿@using LiveMetal.Core.Models.Venue
+@using System.Linq
 @model IEnumerable<VenueAllFeaturesViewModel>
 
 @{
     ViewData["Title"] = "All Venues";
+
+    // Pagination setup
+    int pageSize = 3; // Adjust page size as needed
+    int currentPage = 1;
+    if (Context.Request.Query.ContainsKey("page"))
+    {
+        int.TryParse(Context.Request.Query["page"], out currentPage);
+    }
+    int totalRecords = Model.Count();
+    int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+    var pagedModel = Model.Skip((currentPage - 1) * pageSize).Take(pageSize);
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <div class="container mt-4">
-    @foreach (var venue in Model)
+    @if (pagedModel.Any())
     {
-        <div class="card mb-3">
-            <div class="card-header">
-                <h2>@venue.Name</h2>
-                <h5>Location: @venue.Location</h5>
-                <h6>Capacity: @venue.Capacity</h6>
-                <h6>Contact Info: @venue.ContactInfo</h6>
+        foreach (var venue in pagedModel)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2>@venue.Name</h2>
+                    <h5>Location: @venue.Location</h5>
+                    <h6>Capacity: @venue.Capacity</h6>
+                    <h6>Contact Info: @venue.ContactInfo</h6>
+                </div>
+                <div class="card-body">
+                    <h5>Concerts:</h5>
+                    @if (venue.Concerts.Any())
+                    {
+                        <ul>
+                            @foreach (var concert in venue.Concerts)
+                            {
+                                <li>
+                                    @concert.Name - @concert.Date (@concert.Time) - $@concert.TicketPrice
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No concerts scheduled.</p>
+                    }
+                </div>
             </div>
-            <div class="card-body">
-                <h5>Concerts:</h5>
-                @if (venue.Concerts.Any())
-                {
-                    <ul>
-                        @foreach (var concert in venue.Concerts)
-                        {
-                            <li>
-                                @concert.Name - @concert.Date (@concert.Time) - $@concert.TicketPrice
-                            </li>
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <p>No concerts scheduled.</p>
-                }
-            </div>
-        </div>
+        }
     }
+    else
+    {
+        <p>No venues available.</p>
+    }
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("All", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 @section Styles {
-<link rel="stylesheet" href="~/css/allVenues.css" />
+    <link rel="stylesheet" href="~/css/allVenues.css" />
 }

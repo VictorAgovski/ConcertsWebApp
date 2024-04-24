@@ -28,8 +28,4 @@
     <ProjectReference Include="..\LiveMetal.Core\LiveMetal.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
-  </ItemGroup>
-
 </Project>

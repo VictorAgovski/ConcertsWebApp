@@ -3,12 +3,23 @@
 
 @{
     ViewData["Title"] = "All Bands";
+
+    // Pagination settings
+    int pageSize = 2;
+    int currentPage = 1;
+    if (Context.Request.Query.ContainsKey("page"))
+    {
+        int.TryParse(Context.Request.Query["page"], out currentPage);
+    }
+    int totalRecords = Model.Count();
+    int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+    var pagedModel = Model.Skip((currentPage - 1) * pageSize).Take(pageSize);
 }
 
 <h1>All Bands</h1>
 
 <div class="container">
-    @foreach (var band in Model)
+    @foreach (var band in pagedModel)
     {
         <div class="card mb-3">
             <img src="@band.BandImageUrl" class="card-img-top" alt="Image of @band.Name">
@@ -27,7 +38,7 @@
                         </li>
                     }
                 </ul>
-                @if (User.Identity.IsAuthenticated && (User.IsAdmin()))
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                 {
                     <button class="btn btn-primary" onclick="toggleMemberForm('@band.BandId')">Add Member</button>
                     <div id="addMemberForm-@band.BandId" class="add-member-form" style="display:none;">
@@ -56,10 +67,33 @@
                             <button type="submit" class="btn btn-success">Submit</button>
                         </form>
                     </div>
-                }              
+                }
             </div>
         </div>
     }
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("All", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 @section Scripts {
