@@ -1,5 +1,6 @@
 ﻿using LiveMetal.Core.Contracts;
 using LiveMetal.Core.Models.Concert;
+using LiveMetal.Infrastructure.Data.Models;
 using LiveMetal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -195,6 +196,29 @@ namespace LiveMetal.Controllers
             {
                 return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            var concerts = await _concertService.SearchConcertsAsync(searchTerm);
+            return View("All", concerts);
+        }
+
+        [HttpGet]
+        [Route("Concert/All/{searchTerm}")]
+        public async Task<IActionResult> All(string searchTerm)
+        {
+            IEnumerable<ConcertViewModel> concerts;
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                concerts = await _concertService.SearchConcertsAsync(searchTerm);
+            }
+            else
+            {
+                concerts = await _concertService.GetAllConcerts();
+            }
+            return View(concerts);
         }
     }
 }

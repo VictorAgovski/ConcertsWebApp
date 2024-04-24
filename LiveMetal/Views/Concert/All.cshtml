@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "All Concerts";
 
+    string searchTerm = Context.Request.Query["searchTerm"];
     int pageSize = 3;
     int currentPage = 1;
     if (Context.Request.Query.ContainsKey("page"))
@@ -17,10 +18,27 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">All Concerts</h1>
+    
+    <!-- Search Form -->
+    <form method="get" action="@Url.Action("Search", "Concert")">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search concerts" value="@searchTerm">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
     @foreach (var concert in pagedModel)
     {
         <div class="card mb-3 shadow-sm">
-            <img src="@concert.ConcertPicture" class="card-img-top" alt="Image of @concert.Name">
+            <!-- Check if the ConcertPicture URL is not null or empty before attempting to load -->
+            @if (!string.IsNullOrEmpty(concert.ConcertPicture))
+            {
+                <img src="@concert.ConcertPicture" class="card-img-top" alt="Image of @concert.Name">
+            }
+            else
+            {
+                <!-- If no image URL is provided, display a placeholder or default image -->
+                <img src="~/images/default-concert-image.jpg" class="card-img-top" alt="Default Image">
+            }
+            
             <div class="card-header text-center">
                 <h3>@concert.Name</h3>
                 <small>@concert.Date @concert.Time</small>
@@ -38,7 +56,6 @@
                     <a class="btn btn-danger" asp-controller="Concert" asp-action="Delete" asp-route-id="@concert.ConcertId">Delete</a>
                 }
             </div>
-            <!-- Review and carousel logic can remain the same -->
         </div>
     }
 
@@ -46,7 +63,7 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <li class="page-item @(currentPage == 1 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("All", new { page = currentPage - 1 })" aria-label="Previous">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage - 1, searchTerm = searchTerm })" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                 </a>
@@ -54,11 +71,11 @@
             @for (int i = 1; i <= totalPages; i++)
             {
                 <li class="page-item @(i == currentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("All", new { page = i })">@i</a>
+                    <a class="page-link" href="@Url.Action("All", new { page = i, searchTerm = searchTerm })">@i</a>
                 </li>
             }
             <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("All", new { page = currentPage + 1 })" aria-label="Next">
+                <a class="page-link" href="@Url.Action("All", new { page = currentPage + 1, searchTerm = searchTerm })" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
                 </a>

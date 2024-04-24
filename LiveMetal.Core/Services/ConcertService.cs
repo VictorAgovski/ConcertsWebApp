@@ -213,5 +213,41 @@ namespace LiveMetal.Core.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<ConcertViewModel>> SearchConcertsAsync(string searchTerm)
+        {
+            searchTerm = searchTerm?.Trim().ToLower();
+            return await _repository
+                .AllReadOnly<Concert>()
+                .Include(c => c.Band)
+                .Include(c => c.Venue)
+                .Where(c => c.Name.ToLower().Contains(searchTerm) ||
+                            c.Description.ToLower().Contains(searchTerm) ||
+                            c.Band.Name.ToLower().Contains(searchTerm) ||
+                            c.Venue.Name.ToLower().Contains(searchTerm))
+                .OrderBy(c => c.Date)
+                .Select(c => new ConcertViewModel
+                {
+                    ConcertId = c.ConcertId,
+                    Name = c.Name,
+                    Date = c.Date.ToString("yyyy-MM-dd"),
+                    Time = c.Time.ToString("HH:mm"),
+                    Description = c.Description,
+                    TicketPrice = c.TicketPrice,
+                    ConcertPicture = c.Band.BandImageUrl,
+                    VenueName = c.Venue.Name,
+                    BandName = c.Band.Name,
+                    Reviews = c.Reviews.Select(r => new ReviewViewModel
+                    {
+                        Content = r.Content,
+                        Rating = r.Rating,
+                        UserName = $"{r.User.FirstName} {r.User.LastName}",
+                        IssuedOn = r.IssuedOn.ToString("yyyy-MM-dd"),
+                        Title = r.Title,
+                        ConcertName = r.Concert.Name
+                    }).ToList()
+                })
+                .ToListAsync();
+        }
     }
 }

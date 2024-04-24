@@ -29,5 +29,7 @@ namespace LiveMetal.Core.Contracts
         Task DeleteReviewsAndConcertAsync(Concert concert);
 
         Task<IEnumerable<AllConcertsViewModel>> GetAllConcertsAsync();
+
+        Task<IEnumerable<ConcertViewModel>> SearchConcertsAsync(string searchTerm);
     }
 }
