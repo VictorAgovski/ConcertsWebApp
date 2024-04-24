@@ -48,12 +48,13 @@ namespace LiveMetal
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}",
-                defaults: new { Controller = "Home", Action = "Index" });
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}",
+                    defaults: new { Controller = "Home", Action = "Index" });
+
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
-            });            
+            });
 
             app.Run();
         }
