@@ -41,16 +41,14 @@ namespace LiveMetal.Infrastructure.Data.Models
         [Comment("Concert ticket price")]
         public decimal TicketPrice { get; set; }
 
-        [Required]
         [Comment("Band unique identifier - foreign key")]
-        public int BandId { get; set; }
+        public int? BandId { get; set; }
 
         [ForeignKey(nameof(BandId))]
         public Band? Band { get; set; }
 
-        [Required]
         [Comment("Venue unique identifier - foreign key")]
-        public int VenueId { get; set; }
+        public int? VenueId { get; set; }
 
         [ForeignKey(nameof(VenueId))]
         public Venue? Venue { get; set; }

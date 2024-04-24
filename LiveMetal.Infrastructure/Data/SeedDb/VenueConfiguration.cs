@@ -20,6 +20,12 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
                 .HasForeignKey(c => c.VenueId) 
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder
+                .HasMany(v => v.Concerts)
+                .WithOne(c => c.Venue)
+                .HasForeignKey(c => c.VenueId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             var data = new SeedData();
 
             builder.HasData(new Venue[] { data.FirstVenue, data.SecondVenue, data.ThirdVenue });

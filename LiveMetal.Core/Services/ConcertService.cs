@@ -168,8 +168,8 @@ namespace LiveMetal.Core.Services
                 .Where(c => c.ConcertId == id)
                 .Select(c => new ConcertCreateViewModel
                 {
-                    BandId = c.BandId,
-                    VenueId = c.VenueId,
+                    BandId = (int)c.BandId,
+                    VenueId = (int)c.VenueId,
                     Date = c.Date.ToString("yyyy-MM-dd"),
                     Time = c.Time.ToString(TimeFormat),
                     Description = c.Description,
