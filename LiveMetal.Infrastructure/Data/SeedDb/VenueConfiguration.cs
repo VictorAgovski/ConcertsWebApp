@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,12 @@ namespace LiveMetal.Infrastructure.Data.SeedDb
     {
         public void Configure(EntityTypeBuilder<Venue> builder)
         {
+            builder
+                .HasMany(v => v.Concerts)  
+                .WithOne(c => c.Venue) 
+                .HasForeignKey(c => c.VenueId) 
+                .OnDelete(DeleteBehavior.Restrict);
+
             var data = new SeedData();
 
             builder.HasData(new Venue[] { data.FirstVenue, data.SecondVenue, data.ThirdVenue });

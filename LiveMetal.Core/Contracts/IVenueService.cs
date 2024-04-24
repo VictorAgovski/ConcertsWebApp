@@ -1,9 +1,5 @@
 ﻿using LiveMetal.Core.Models.Venue;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LiveMetal.Infrastructure.Data.Models;
 
 namespace LiveMetal.Core.Contracts
 {
@@ -14,5 +10,7 @@ namespace LiveMetal.Core.Contracts
         Task<IEnumerable<VenueAllFeaturesViewModel>> GetAllVenuesWithFeatures();
 
         Task AddVenueAsync(VenueCreateViewModel model);
+
+        Task DeleteVenueAsync(VenueAllFeaturesViewModel venue);
     }
 }

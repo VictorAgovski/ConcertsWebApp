@@ -4,6 +4,7 @@ using LiveMetal.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiveMetal.Infrastructure.Migrations
 {
     [DbContext(typeof(LiveMetalDbContext))]
-    partial class LiveMetalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424154107_AddDeleteRestrictionOnVenuesTable")]
+    partial class AddDeleteRestrictionOnVenuesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

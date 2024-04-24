@@ -16,10 +16,14 @@ namespace LiveMetal.Core.Services
     public class VenueService : IVenueService
     {
         private readonly IRepository _repository;
+        private readonly IConcertService _concertService;
+        private readonly IReviewService _reviewService;
 
-        public VenueService(IRepository repository)
+        public VenueService(IRepository repository, IConcertService concertService, IReviewService reviewService)
         {
             _repository = repository;
+            _concertService = concertService;
+            _reviewService = reviewService;
         }
 
         public async Task AddVenueAsync(VenueCreateViewModel model)
@@ -33,6 +37,29 @@ namespace LiveMetal.Core.Services
             };
 
             await _repository.AddAsync<Venue>(venue);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task DeleteVenueAsync(VenueAllFeaturesViewModel venue)
+        {
+            var venueToDelete = await _repository.All<Venue>()
+               .Include(v => v.Concerts)
+               .Where(b => b.VenueId == venue.Id)
+               .FirstOrDefaultAsync();
+
+            for (int i = 0; i < venueToDelete.Concerts.Count; i++)
+            {
+                for (int j = 0; j < venueToDelete.Concerts[i].Reviews.Count; j++)
+                {
+                    await _reviewService.DeleteReviewAsync(venueToDelete.Concerts[i].Reviews[j]);
+                    j++;
+                }
+
+                await _concertService.DeleteReviewsAndConcertAsync(venueToDelete.Concerts[i]);
+                i++;
+            }
+
+            await _repository.DeleteAsync<Venue>(venueToDelete.VenueId);
             await _repository.SaveChangesAsync();
         }
 

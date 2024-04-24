@@ -111,24 +111,6 @@ namespace LiveMetal.Areas.Admin.Controllers
             return RedirectToAction("All");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> DeleteBand(int id)
-        {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
-            var band = await _bandService.GetBandById(id);
-
-            if (band == null)
-            {
-                return NotFound();
-            }
-
-            return View(band);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteBand(Band model)

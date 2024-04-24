@@ -21,42 +21,5 @@ namespace LiveMetal.Controllers
             var allVenues = await _venueService.GetAllVenuesWithFeatures();
             return View(allVenues);
         }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
-            return View(new VenueCreateViewModel());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VenueCreateViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
-            try
-            {
-                await _venueService.AddVenueAsync(model);
-                return RedirectToAction("All");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "An error occurred while creating the venue");
-                return View(model);
-            }
-        }
     }
 }

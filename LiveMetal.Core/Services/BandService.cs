@@ -108,14 +108,16 @@ namespace LiveMetal.Core.Services
                .Where(b => b.BandId == band.BandId)
                .FirstOrDefaultAsync();
 
-            foreach (var concert in bandToDelete.Concerts)
+            for (int i = 0; i < bandToDelete.Concerts.Count; i++)
             {
-                foreach (var review in concert.Reviews)
+                for (int j = 0; j < bandToDelete.Concerts[i].Reviews.Count; j++)
                 {
-                    await _reviewService.DeleteReviewAsync(review);
+                    await _reviewService.DeleteReviewAsync(bandToDelete.Concerts[i].Reviews[j]);
+                    j++;
                 }
 
-                await _concertService.DeleteReviewsAndConcertAsync(concert);
+                await _concertService.DeleteReviewsAndConcertAsync(bandToDelete.Concerts[i]);
+                i++;
             }
 
             await _repository.DeleteAsync<Band>(bandToDelete.BandId);
