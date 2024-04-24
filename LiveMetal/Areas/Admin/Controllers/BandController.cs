@@ -40,11 +40,6 @@ namespace LiveMetal.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddMember(BandMemberCreateViewModel model)
         {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
             var band = await _bandService.GetBandById(model.BandId);
 
             if (band == null)
@@ -61,11 +56,6 @@ namespace LiveMetal.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteMember(int id)
         {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
             var member = await _memberService.GetMemberDetailsById(id);
 
             if (member == null)
@@ -81,11 +71,6 @@ namespace LiveMetal.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
             var model = new BandCreateViewModel
             {
                 Members = new List<BandMemberCreateViewModel> { new BandMemberCreateViewModel() }
@@ -97,11 +82,6 @@ namespace LiveMetal.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BandCreateViewModel model)
         {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -115,11 +95,6 @@ namespace LiveMetal.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteBand(Band model)
         {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
             await _bandService.DeleteBandAsync(model);
             return RedirectToAction("All");
         }

@@ -24,11 +24,6 @@ namespace LiveMetal.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
-            }
-
             return View(new VenueCreateViewModel());
         }
 
@@ -39,11 +34,6 @@ namespace LiveMetal.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
-            }
-
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
             }
 
             try
@@ -67,11 +57,6 @@ namespace LiveMetal.Areas.Admin.Controllers
             if (model == null)
             {
                 return NotFound();
-            }
-
-            if (!User.IsAdmin())
-            {
-                return Unauthorized();
             }
 
             await _venueService.DeleteVenueAsync(model);
